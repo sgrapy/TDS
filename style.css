@@ -1,0 +1,2880 @@
+/* La Taverne des Scores — Design system V0.6.3
+   Thèmes supprimés : une base unique, lisible, responsive et prête pour un futur mode nuit. */
+
+:root {
+  color-scheme: light;
+  --bg-0: #100b08;
+  --bg-1: #17100c;
+  --bg-2: #211510;
+  --surface: #fff8ee;
+  --surface-2: #f4eadc;
+  --surface-3: #eadac5;
+  --text: #241914;
+  --text-soft: #6f5d50;
+  --text-on-dark: #fff8ee;
+  --muted-on-dark: rgba(255,248,238,.76);
+  --gold: #e2b768;
+  --gold-2: #f4d38c;
+  --copper: #b76534;
+  --wine: #743044;
+  --green: #436b51;
+  --red: #a4473d;
+  --blue: #385d72;
+  --border: rgba(65, 42, 29, .14);
+  --border-strong: rgba(226, 183, 104, .38);
+  --shadow: 0 18px 48px rgba(0,0,0,.30);
+  --shadow-soft: 0 10px 24px rgba(31, 19, 12, .16);
+  --radius-sm: 12px;
+  --radius: 18px;
+  --radius-lg: 28px;
+  --footer-h: 88px;
+  --font-title: 'Cinzel', Georgia, serif;
+  --font-ui: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { min-height: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-ui);
+  color: var(--text-on-dark);
+  background:
+    radial-gradient(circle at 18% 8%, rgba(226,183,104,.16), transparent 24rem),
+    radial-gradient(circle at 92% 4%, rgba(116,48,68,.22), transparent 26rem),
+    linear-gradient(180deg, var(--bg-0), var(--bg-2) 48%, var(--bg-1));
+  display: flex;
+  flex-direction: column;
+  padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom));
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: .34;
+}
+
+img { max-width: 100%; display: block; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; }
+
+[hidden], .guest-overlay[hidden], .round-overlay[hidden], .edit-overlay[hidden], .endgame-overlay[hidden] { display: none !important; }
+
+.ui-icon {
+  width: 1.05rem;
+  height: 1.05rem;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: -0.18em;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,.2));
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  padding: 1rem clamp(1rem, 4vw, 2rem);
+  text-align: center;
+  background: rgba(16, 11, 8, .84);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(226,183,104,.22);
+}
+
+header h1, header h2 {
+  margin: 0;
+  font-family: var(--font-title);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: clamp(1.15rem, 2.2vw, 1.75rem);
+  color: var(--text-on-dark);
+  text-shadow: 0 2px 16px rgba(0,0,0,.42);
+}
+
+main {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+  padding: clamp(1rem, 3vw, 2rem);
+  flex: 1;
+}
+
+section { margin: 0 0 clamp(1.6rem, 3vw, 2.6rem); }
+main > section > h2 {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0 1rem;
+  padding: .55rem 1rem;
+  border: 1px solid rgba(226,183,104,.28);
+  border-radius: 999px;
+  background: rgba(255,248,238,.08);
+  color: var(--text-on-dark);
+  font-family: var(--font-title);
+  font-size: clamp(.95rem, 1.6vw, 1.15rem);
+  letter-spacing: .03em;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(144px, 1fr));
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+}
+
+.game-card {
+  min-height: 148px;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, #fffaf0, #ead8bd);
+  border: 1px solid rgba(255,255,255,.7);
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+}
+.game-card:hover { transform: translateY(-4px); box-shadow: 0 18px 34px rgba(0,0,0,.28); filter: saturate(1.06); }
+.game-card:active { transform: translateY(-1px) scale(.99); }
+.game-card img { width: min(116px, 80%); max-height: 116px; object-fit: contain; filter: drop-shadow(0 10px 14px rgba(44,24,13,.24)); }
+
+/* Footer */
+.app-footer {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 90;
+  min-height: var(--footer-h);
+  padding: .72rem max(1rem, env(safe-area-inset-left)) calc(.72rem + env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-right));
+  background: rgba(18, 12, 9, .92);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(226,183,104,.24);
+  box-shadow: 0 -18px 44px rgba(0,0,0,.28);
+}
+.footer-inner {
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) auto minmax(220px, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+.footer-brand { display: flex; align-items: center; gap: .65rem; min-width: 0; }
+.footer-emblem {
+  width: 42px; height: 42px; flex: 0 0 auto;
+  border-radius: 12px;
+  display: grid; place-items: center;
+  background: linear-gradient(145deg, rgba(226,183,104,.25), rgba(116,48,68,.18));
+  border: 1px solid rgba(226,183,104,.35);
+  overflow: hidden;
+}
+.footer-emblem img { width: 32px; height: 32px; object-fit: contain; }
+.footer-title { font-weight: 800; letter-spacing: .02em; white-space: nowrap; color: var(--text-on-dark); }
+.footer-version {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .28rem .62rem;
+  border-radius: 999px;
+  background: rgba(226,183,104,.18);
+  color: var(--gold-2);
+  border: 1px solid rgba(226,183,104,.32);
+  font-weight: 800; font-size: .78rem;
+  white-space: nowrap;
+}
+.footer-buttons { display: flex; justify-content: center; gap: .55rem; flex-wrap: wrap; }
+.footer-btn, .round-btn, .close-btn, .yes-btn, .no-btn {
+  border: 1px solid rgba(226,183,104,.28);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,248,238,.13), rgba(255,248,238,.06));
+  color: var(--text-on-dark);
+  min-height: 42px;
+  padding: .68rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .5rem;
+  text-decoration: none;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .16s ease, background .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+.footer-btn:hover, .round-btn:hover, .close-btn:hover, .yes-btn:hover, .no-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(244,211,140,.65);
+  background: linear-gradient(180deg, rgba(226,183,104,.28), rgba(183,101,52,.20));
+  box-shadow: 0 8px 22px rgba(0,0,0,.22);
+}
+#footerMessage { justify-self: end; color: var(--muted-on-dark); text-align: right; font-size: .92rem; min-width: 0; }
+#rotatingMessage { margin: 0; transition: opacity .35s ease; }
+
+/* Modales génériques */
+.options-overlay, .confirm-overlay, .score-setup-overlay, .score-guest-overlay, .round-overlay, .edit-overlay, .endgame-overlay, .guest-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 3vw, 2rem);
+  background: rgba(10, 7, 5, .72);
+  backdrop-filter: blur(10px);
+}
+.about-modal, .options-menu, .confirm-box, .popupContent, .score-setup-modal, .score-guest-modal, .round-modal, .edit-modal, .endgame-modal {
+  width: min(940px, 100%);
+  max-height: min(86vh, 900px);
+  overflow: auto;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface), var(--surface-2));
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.66);
+  box-shadow: var(--shadow);
+}
+.about-modal, .options-menu, .confirm-box { padding: clamp(1.25rem, 3vw, 2rem); text-align: left; }
+.modal-content { max-width: 700px; margin: 0 auto; }
+.modal-kicker, .score-setup-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0 0 .8rem;
+  padding: .4rem .8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(183,101,52,.25);
+  background: rgba(183,101,52,.10);
+  color: #7c3f20;
+  font-weight: 900;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.about-modal h2, .options-menu h2, .popupContent h3, .round-modal h2, .edit-modal h2, .endgame-modal h2 { margin: 0 0 1rem; color: var(--text); }
+.about-modal p, .options-menu p, .score-helper, .modal-description { color: var(--text-soft); line-height: 1.55; }
+.modal-actions-row, .score-actions-bar, .round-actions, .edit-actions, .endgame-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.about-modal button, .options-menu button, .confirm-box button, .popupContent button, .round-modal button, .edit-modal button, .endgame-modal button {
+  border: 0;
+}
+
+/* Gestion joueurs */
+.popup { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10000; padding: 1rem; background: rgba(10,7,5,.72); backdrop-filter: blur(10px); }
+.popupContent { padding: clamp(1rem, 3vw, 1.7rem); width: min(860px, 100%); }
+.player-grid, .avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: .8rem;
+  margin: 1rem 0;
+}
+.player-card, .avatar-option {
+  position: relative;
+  border-radius: var(--radius);
+  background: #fffdf7;
+  border: 1px solid rgba(36,25,20,.12);
+  box-shadow: 0 8px 18px rgba(36,25,20,.08);
+  padding: .7rem;
+  text-align: center;
+}
+.player-card img, .avatar-option img { width: 58px; height: 58px; object-fit: contain; margin: 0 auto .35rem; border-radius: 50%; }
+.avatar-option { cursor: pointer; }
+.avatar-option.selected { outline: 3px solid var(--gold); border-color: var(--copper); }
+.player-name { color: var(--text); font-weight: 800; overflow-wrap: anywhere; }
+.edit-btn, .delete-btn {
+  margin: .35rem .12rem 0;
+  width: 34px; height: 34px;
+  border-radius: 999px;
+  background: rgba(183,101,52,.1);
+  cursor: pointer;
+}
+#newPlayerZone input, .score-option-field input, .score-option-field select, .score-guest-modal input, .round-score-input, .edit-input {
+  width: 100%;
+  min-height: 44px;
+  padding: .72rem .85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(36,25,20,.16);
+  background: #fffdf8;
+  color: var(--text);
+  outline: none;
+}
+#newPlayerZone input:focus, .score-option-field input:focus, .score-option-field select:focus, .round-score-input:focus, .edit-input:focus { border-color: var(--copper); box-shadow: 0 0 0 4px rgba(183,101,52,.12); }
+.error-message, .error-modal { color: #fff; background: var(--red); padding: .75rem 1rem; border-radius: 14px; margin: .75rem 0; }
+.error-modal { position: fixed; bottom: calc(var(--footer-h) + 1rem); left: 50%; transform: translateX(-50%); z-index: 12000; box-shadow: var(--shadow-soft); }
+
+/* Préparation de partie */
+.score-setup-modal { padding: 0; overflow: hidden; }
+.score-setup-hero {
+  padding: clamp(1.2rem, 3vw, 2rem);
+  background:
+    radial-gradient(circle at 92% 10%, rgba(226,183,104,.20), transparent 16rem),
+    linear-gradient(135deg, #2a1811, #4a2430);
+  color: var(--text-on-dark);
+}
+.score-setup-title-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.score-setup-title-row h1 { margin: .2rem 0 .4rem; font-size: clamp(2rem, 7vw, 4rem); line-height: .95; color: var(--text-on-dark); }
+.score-setup-title-row p { margin: 0; color: var(--muted-on-dark); font-size: clamp(1rem, 2vw, 1.15rem); }
+.score-setup-kicker { color: var(--gold-2); background: rgba(226,183,104,.16); border-color: rgba(226,183,104,.36); }
+.score-version { white-space: nowrap; border-radius: 999px; padding: .45rem .75rem; background: rgba(255,255,255,.12); color: var(--gold-2); font-weight: 900; }
+.score-notice { margin-top: .9rem; padding: .8rem 1rem; border-radius: 16px; background: rgba(67,107,81,.16); color: #215133; border: 1px solid rgba(67,107,81,.18); }
+.score-setup-steps { display: flex; gap: .5rem; padding: 1rem clamp(1rem, 3vw, 1.5rem) 0; flex-wrap: wrap; }
+.score-step-pill { border-radius: 999px; padding: .45rem .8rem; background: rgba(36,25,20,.08); color: var(--text-soft); font-weight: 800; font-size: .85rem; }
+.score-step-pill.is-active { background: rgba(183,101,52,.14); color: #7c3f20; }
+.score-setup-grid { display: grid; grid-template-columns: minmax(260px, .9fr) minmax(300px, 1.35fr); gap: 1rem; padding: clamp(1rem, 3vw, 1.5rem); }
+.score-setup-panel { border-radius: var(--radius); padding: 1rem; background: rgba(255,255,255,.68); border: 1px solid rgba(36,25,20,.09); box-shadow: 0 8px 22px rgba(36,25,20,.06); }
+.score-panel-head { display: flex; align-items: flex-start; gap: .8rem; margin-bottom: .9rem; }
+.score-panel-head h2 { margin: 0; color: var(--text); }
+.score-panel-head p { margin: .25rem 0 0; color: var(--text-soft); }
+.score-panel-icon { width: 38px; height: 38px; border-radius: 14px; display: grid; place-items: center; background: rgba(183,101,52,.12); flex: 0 0 auto; }
+.score-options-grid { display: grid; gap: .85rem; }
+.score-option-field label { display: grid; gap: .35rem; color: var(--text); font-weight: 800; }
+.score-option-field small { color: var(--text-soft); font-weight: 600; }
+.score-selected-tray { min-height: 50px; display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .85rem; }
+.score-selection-placeholder { color: var(--text-soft); font-size: .92rem; }
+.score-selected-chip { border: 1px solid rgba(183,101,52,.25); border-radius: 999px; padding: .35rem .7rem .35rem .35rem; display: inline-flex; align-items: center; gap: .4rem; background: rgba(183,101,52,.10); color: var(--text); font-weight: 800; cursor: pointer; }
+.score-chip-order, .score-player-order { width: 24px; height: 24px; display: inline-grid; place-items: center; border-radius: 999px; background: var(--copper); color: white; font-size: .8rem; font-weight: 900; }
+.score-player-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(116px, 1fr)); gap: .75rem; }
+.score-player-tile { position: relative; border: 1px solid rgba(36,25,20,.11); border-radius: var(--radius); padding: .75rem; background: #fffdf8; color: var(--text); text-align: center; cursor: pointer; box-shadow: 0 6px 14px rgba(36,25,20,.06); }
+.score-player-tile.selected { outline: 3px solid rgba(226,183,104,.76); border-color: var(--copper); }
+.score-player-tile img { width: 56px; height: 56px; object-fit: contain; margin: 0 auto .35rem; border-radius: 50%; }
+.score-player-order { position: absolute; top: .45rem; right: .45rem; background: var(--green); }
+.score-add-guest-tile { border-style: dashed; color: #7c3f20; background: rgba(226,183,104,.10); }
+.score-empty-players { padding: 1rem; color: var(--text-soft); background: rgba(36,25,20,.05); border-radius: var(--radius); }
+.score-setup-footer { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; padding: 0 clamp(1rem,3vw,1.5rem) clamp(1rem,3vw,1.5rem); }
+.score-primary-action, .yes-btn { background: linear-gradient(180deg, var(--copper), #8f4b28) !important; color: #fff !important; border-color: rgba(255,255,255,.22) !important; }
+.score-secondary, .no-btn { background: rgba(36,25,20,.08) !important; color: var(--text) !important; border-color: rgba(36,25,20,.12) !important; }
+
+/* Écran jeu + tableaux */
+.score-config-card, .score-game-card {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, var(--surface), #f7ebd9);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.7);
+  box-shadow: var(--shadow);
+  padding: clamp(1rem, 3vw, 1.8rem);
+}
+.score-game-topline { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.score-game-topline h2 { margin: 0 0 .4rem; color: var(--text); font-size: clamp(1.5rem, 4vw, 2.4rem); }
+.score-game-topline p { color: var(--text-soft); margin: 0; }
+.score-save-badge { white-space: nowrap; display: inline-flex; gap: .4rem; align-items: center; border-radius: 999px; padding: .5rem .75rem; background: rgba(67,107,81,.12); color: #245338; font-weight: 900; }
+.score-summary-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: .85rem; margin: 1rem 0; }
+.score-summary-card { border-radius: var(--radius); padding: 1rem; background: #fffdf8; border: 1px solid rgba(36,25,20,.10); }
+.score-summary-card span { display: block; color: var(--text-soft); margin-bottom: .35rem; }
+.score-summary-card strong { color: var(--text); font-size: 1.15rem; }
+.score-alert-card { border-color: rgba(164,71,61,.24); background: #fff4f1; }
+.table-wrapper, .edit-table-wrapper {
+  width: 100%;
+  overflow: auto;
+  border-radius: var(--radius);
+  border: 1px solid rgba(36,25,20,.12);
+  background: #fffdf8;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.55);
+  -webkit-overflow-scrolling: touch;
+}
+.table-wrapper::before { content: 'Faites glisser le tableau si besoin'; display: none; padding: .65rem .8rem; color: var(--text-soft); font-size: .82rem; background: #fff8ee; border-bottom: 1px solid rgba(36,25,20,.09); }
+.score-table, .edit-table, .endgame-table { width: 100%; min-width: 640px; border-collapse: separate; border-spacing: 0; color: var(--text); }
+.score-table th, .score-table td, .edit-table th, .edit-table td, .endgame-table th, .endgame-table td { padding: .8rem .85rem; text-align: center; border-bottom: 1px solid rgba(36,25,20,.10); border-right: 1px solid rgba(36,25,20,.07); }
+.score-table thead th, .edit-table thead th, .endgame-table thead th { position: sticky; top: 0; z-index: 2; background: #2b1a12; color: var(--text-on-dark); font-weight: 900; }
+.score-table th:first-child, .score-table td:first-child { position: sticky; left: 0; z-index: 3; font-weight: 900; }
+.score-table thead th:first-child { background: #24160f; }
+.score-table tbody td:first-child { background: #fff4e3; }
+.score-table tbody tr:nth-child(even):not(.total-row):not(.ranking-row) td:not(:first-child) { background: #fffaf2; }
+.score-table tbody tr:nth-child(odd):not(.total-row):not(.ranking-row) td:not(:first-child) { background: #f8eddc; }
+.ranking-row td { background: #f0c477 !important; color: #2d1c12; font-weight: 900; }
+.total-row td { background: #806030 !important; color: #fff8ee; font-weight: 900; }
+.score-entity-head { display: grid; justify-items: center; gap: .25rem; color: inherit; }
+.score-avatar-stack { display: flex; justify-content: center; min-height: 38px; }
+.score-avatar-stack img { width: 36px; height: 36px; object-fit: contain; border-radius: 999px; background: rgba(255,255,255,.2); }
+.score-rank-badge { width: 34px; height: 34px; border-radius: 999px; display: inline-grid; place-items: center; background: #f0dfc1; color: #2d1c12; font-weight: 900; box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.rank-1 { background: var(--gold-2); }
+.rank-2 { background: #e7edf1; }
+.rank-3 { background: #d29a63; }
+.round-controls { margin-top: 1rem; }
+
+.score-round-modal, .score-edit-modal, .endgame-modal, .score-guest-modal { padding: clamp(1rem, 3vw, 1.5rem); }
+.score-round-inputs { display: grid; gap: .85rem; margin-top: 1rem; }
+.score-round-inputs label { display: grid; gap: .35rem; color: var(--text); font-weight: 800; }
+.edit-table input { min-width: 78px; }
+.endgame-table { min-width: 420px; }
+.score-toast { position: fixed; left: 50%; bottom: calc(var(--footer-h) + 1rem); transform: translateX(-50%); z-index: 12000; background: #2b1a12; color: var(--text-on-dark); padding: .8rem 1rem; border-radius: 999px; box-shadow: var(--shadow-soft); font-weight: 800; }
+
+/* Chargement réutilisable */
+.loading-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at top, rgba(226,183,104,.18), transparent 24rem),
+    linear-gradient(180deg, #140d09, #090605);
+  color: var(--text-on-dark);
+}
+.loading-card { width: min(820px, 100%); text-align: center; }
+.loading-card h1 { margin: 0 0 1.4rem; color: var(--text-on-dark); font-size: clamp(1.8rem, 6vw, 3.2rem); }
+.loading-bar { width: 100%; height: 22px; border-radius: 999px; background: rgba(255,248,238,.14); overflow: hidden; border: 1px solid rgba(226,183,104,.24); }
+.progress { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--copper), var(--gold-2)); animation: progressAnimation 2.3s ease-out forwards; }
+@keyframes progressAnimation { from { width: 0; } to { width: 100%; } }
+.message { margin-top: 1.2rem; color: var(--muted-on-dark); font-weight: 700; }
+.loading-version { margin-top: 2rem; color: rgba(255,248,238,.62); }
+
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.sparkle { position: absolute; width: 18px; height: 18px; background: radial-gradient(circle, #ffd76b 0%, rgba(255,215,107,.5) 50%, transparent 72%); pointer-events: none; border-radius: 50%; animation: sparkleAnimation .8s forwards; z-index: 9999; }
+@keyframes sparkleAnimation { to { opacity: 0; transform: scale(2) rotate(180deg); } }
+
+@media (max-width: 900px) {
+  :root { --footer-h: 128px; }
+  .footer-inner { grid-template-columns: 1fr; text-align: center; gap: .6rem; }
+  .footer-brand, #footerMessage { justify-content: center; justify-self: center; text-align: center; }
+  #footerMessage { display: none; }
+  .score-setup-grid { grid-template-columns: 1fr; }
+  .score-summary-grid { grid-template-columns: 1fr; }
+  .score-game-topline { flex-direction: column; }
+  .table-wrapper::before { display: block; }
+}
+
+@media (max-width: 560px) {
+  :root { --footer-h: 142px; }
+  body { padding-bottom: calc(var(--footer-h) + env(safe-area-inset-bottom)); }
+  main { padding: .85rem; }
+  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
+  .game-card { min-height: 124px; border-radius: 22px; padding: .75rem; }
+  .game-card img { width: 92px; max-height: 92px; }
+  .footer-title { display: none; }
+  .footer-btn { flex: 1 1 auto; padding: .62rem .72rem; font-size: .88rem; }
+  .footer-version { font-size: .74rem; }
+  .score-setup-overlay, .round-overlay, .edit-overlay, .endgame-overlay, .options-overlay, .guest-overlay { padding: .75rem; align-items: flex-start; overflow-y: auto; }
+  .score-setup-modal, .score-game-card, .about-modal, .popupContent, .round-modal, .edit-modal, .endgame-modal { border-radius: 22px; }
+  .score-setup-title-row { flex-direction: column; }
+  .score-player-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .score-actions-bar .round-btn, .score-setup-footer .round-btn, .round-actions .round-btn, .edit-actions .round-btn, .endgame-actions .round-btn { width: 100%; }
+}
+
+/* Patch V0.6.3 — corrections lisibilité, scroll et layout */
+:root {
+  --footer-h: 76px;
+  --content-max: 1120px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+main {
+  width: min(var(--content-max), 100%);
+  padding-bottom: clamp(1.25rem, 3vw, 2.5rem);
+}
+
+/* Accueil : tuiles plus compactes et régulières */
+.game-grid {
+  grid-template-columns: repeat(auto-fill, minmax(132px, 168px));
+  justify-content: center;
+  align-items: stretch;
+  gap: clamp(.85rem, 1.8vw, 1.25rem);
+}
+.game-card {
+  width: 100%;
+  min-height: 126px;
+  padding: .82rem;
+  border-radius: 22px;
+}
+.game-card img {
+  width: min(92px, 82%);
+  max-height: 92px;
+}
+
+/* Overlays : toujours scrollables, jamais bloqués derrière le footer */
+.options-overlay,
+.confirm-overlay,
+.score-setup-overlay,
+.score-guest-overlay,
+.round-overlay,
+.edit-overlay,
+.endgame-overlay,
+.guest-overlay,
+.popup {
+  align-items: flex-start;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-top: max(1rem, env(safe-area-inset-top));
+  padding-bottom: calc(var(--footer-h) + 1rem + env(safe-area-inset-bottom));
+}
+
+.score-setup-modal,
+.about-modal,
+.options-menu,
+.confirm-box,
+.popupContent,
+.score-guest-modal,
+.round-modal,
+.edit-modal,
+.endgame-modal {
+  max-height: none;
+  overflow: visible;
+  margin: auto 0;
+}
+
+/* Préparation partie : largeur plus sûre + contenu lisible */
+.score-setup-modal {
+  width: min(980px, 100%);
+  border-radius: 26px;
+}
+.score-setup-title-row h2,
+.score-setup-title-row h1 {
+  margin: .2rem 0 .55rem;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.02;
+  color: var(--text-on-dark);
+}
+.score-setup-title-row p {
+  max-width: 760px;
+  color: rgba(255,248,238,.84);
+}
+.score-setup-grid {
+  grid-template-columns: minmax(240px, .78fr) minmax(360px, 1.22fr);
+  align-items: start;
+}
+.score-setup-panel {
+  background: rgba(255,253,248,.92);
+}
+.score-setup-footer {
+  position: sticky;
+  bottom: 0;
+  z-index: 4;
+  background: linear-gradient(180deg, rgba(244,234,220,.82), var(--surface-2));
+  border-top: 1px solid rgba(36,25,20,.08);
+  padding-top: .9rem;
+}
+
+/* Sélection joueurs : correction de l'avatar géant dans le tray */
+.score-selected-tray {
+  min-height: 0;
+  max-height: 96px;
+  overflow: auto;
+  padding: .15rem;
+}
+.score-selected-chip {
+  max-width: 100%;
+  min-height: 38px;
+  white-space: nowrap;
+}
+.score-selected-chip img {
+  width: 28px !important;
+  height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  flex: 0 0 28px;
+  object-fit: contain;
+  border-radius: 999px;
+}
+.score-selected-chip span:last-of-type {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+.score-player-tiles {
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  max-height: min(42vh, 430px);
+  overflow: auto;
+  padding: .25rem;
+}
+.score-player-tile {
+  min-height: 104px;
+  padding: .65rem .55rem;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: .2rem;
+}
+.score-player-tile img {
+  width: 52px;
+  height: 52px;
+}
+.score-player-tile span:last-child {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text);
+  font-weight: 800;
+}
+.score-player-order:empty {
+  opacity: 0;
+}
+.score-add-guest-tile {
+  min-height: 104px;
+  color: #6f351b;
+}
+
+/* Gestion des joueurs : cartes compactes + boutons visibles */
+.popupContent {
+  width: min(980px, 100%);
+  max-height: calc(100dvh - var(--footer-h) - 2rem);
+  overflow: auto;
+  margin: 0;
+}
+.player-grid,
+.avatar-grid {
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: .75rem;
+}
+.player-card {
+  min-height: 174px;
+  padding: .78rem .6rem;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: .3rem;
+}
+.player-card img,
+.avatar-option img {
+  width: 54px;
+  height: 54px;
+}
+.player-name {
+  width: 100%;
+  min-height: 1.45rem;
+  font-size: .98rem;
+  line-height: 1.15;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.edit-btn,
+.delete-btn {
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(183,101,52,.18);
+  color: var(--text);
+}
+#newPlayerZone {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  background: linear-gradient(180deg, rgba(255,248,238,.94), var(--surface));
+  padding-top: .85rem;
+  border-top: 1px solid rgba(36,25,20,.16);
+}
+#savePlayerButton,
+#closePopupButton {
+  color: var(--text-on-dark) !important;
+  background: linear-gradient(180deg, var(--copper), #8f4b28) !important;
+  border: 1px solid rgba(255,255,255,.26) !important;
+  box-shadow: 0 10px 22px rgba(80,38,18,.18);
+}
+#closePopupButton {
+  background: linear-gradient(180deg, #4a3528, #2d211a) !important;
+}
+
+/* Icônes : éviter les icônes écrasées / trop contrastées */
+.ui-icon {
+  flex: 0 0 auto;
+}
+.round-btn .ui-icon,
+.footer-btn .ui-icon,
+.edit-btn .ui-icon,
+.delete-btn .ui-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Footer moins haut sur desktop */
+.app-footer {
+  min-height: var(--footer-h);
+  padding-top: .55rem;
+  padding-bottom: calc(.55rem + env(safe-area-inset-bottom));
+}
+.footer-emblem {
+  width: 38px;
+  height: 38px;
+}
+.footer-emblem img {
+  width: 30px;
+  height: 30px;
+}
+.footer-btn {
+  min-height: 38px;
+  padding: .55rem .9rem;
+}
+
+/* Tableaux : conserver la lisibilité sans débordement brutal */
+.score-game-card {
+  width: min(1120px, calc(100vw - 2rem));
+}
+.table-wrapper {
+  max-width: 100%;
+}
+.score-table th,
+.score-table td {
+  min-width: 98px;
+}
+.score-table th:first-child,
+.score-table td:first-child {
+  min-width: 120px;
+}
+
+@media (max-width: 900px) {
+  :root { --footer-h: 108px; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .game-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 156px)); }
+  .score-setup-grid { grid-template-columns: 1fr; }
+  .score-player-tiles { max-height: 34vh; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
+}
+
+@media (max-width: 560px) {
+  :root { --footer-h: 126px; }
+  header { padding: .82rem .75rem; }
+  main { padding: .8rem .7rem; }
+  main > section > h2 { font-size: .9rem; padding: .48rem .82rem; }
+  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .7rem; }
+  .game-card { min-height: 112px; padding: .65rem; border-radius: 18px; }
+  .game-card img { width: 78px; max-height: 78px; }
+  .score-setup-overlay,
+  .popup,
+  .round-overlay,
+  .edit-overlay,
+  .endgame-overlay { padding-inline: .55rem; }
+  .score-setup-modal { border-radius: 20px; }
+  .score-setup-hero { padding: 1rem; }
+  .score-setup-title-row h2,
+  .score-setup-title-row h1 { font-size: clamp(1.85rem, 10vw, 2.6rem); }
+  .score-setup-grid { padding: .8rem; gap: .75rem; }
+  .score-setup-panel { padding: .85rem; border-radius: 16px; }
+  .score-setup-steps { padding-inline: .8rem; }
+  .score-step-pill { font-size: .78rem; padding: .38rem .6rem; }
+  .score-player-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 36vh; }
+  .score-player-tile { min-height: 96px; }
+  .score-player-tile img { width: 46px; height: 46px; }
+  .score-selected-tray { max-height: 86px; }
+  .popupContent { max-height: calc(100dvh - var(--footer-h) - 1rem); border-radius: 20px; }
+  .player-grid, .avatar-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .player-card { min-height: 158px; }
+  .footer-buttons { width: 100%; }
+  .footer-btn { min-width: 0; flex: 1 1 120px; }
+}
+
+
+/* Patch V0.6.3 — tuiles compactes, footers harmonisés, boutons lisibles */
+:root {
+  --footer-h: 74px;
+  --content-max: 1120px;
+}
+
+/* Accueil : le conteneur doit simplement encadrer l'image, pas devenir une grosse plaque */
+.game-grid {
+  grid-template-columns: repeat(auto-fill, minmax(118px, 142px));
+  justify-content: center;
+  gap: clamp(.8rem, 1.7vw, 1.15rem);
+}
+.game-card {
+  width: 100%;
+  aspect-ratio: 1.18 / 1;
+  min-height: 0 !important;
+  padding: .55rem !important;
+  border-radius: 18px !important;
+  background: linear-gradient(145deg, #fffaf0, #eadbc4);
+}
+.game-card img {
+  width: min(86px, 78%) !important;
+  max-height: 86px !important;
+}
+
+/* Préparation : plus de bandeau translucide superposé, c'est un vrai bas de carte */
+.score-setup-modal {
+  max-height: calc(100dvh - var(--footer-h) - 1.2rem);
+  overflow: auto !important;
+  width: min(980px, calc(100vw - 1.2rem));
+}
+.score-setup-footer {
+  position: static !important;
+  bottom: auto !important;
+  display: flex;
+  justify-content: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: .95rem clamp(1rem, 3vw, 1.5rem) 1.05rem !important;
+  background: linear-gradient(180deg, #fff8ee, #f4eadc) !important;
+  border-top: 1px solid rgba(36,25,20,.12);
+  box-shadow: none !important;
+}
+.score-setup-footer .round-btn,
+.score-setup-footer a.round-btn {
+  min-width: 170px;
+  color: var(--text) !important;
+  background: #fffdf8 !important;
+  border: 1px solid rgba(36,25,20,.14) !important;
+  box-shadow: 0 8px 18px rgba(31, 19, 12, .10);
+}
+.score-setup-footer .score-primary-action {
+  color: #fff !important;
+  background: linear-gradient(180deg, var(--copper), #8f4b28) !important;
+  border-color: rgba(255,255,255,.25) !important;
+}
+
+/* Écran de partie : les boutons d'action doivent rester lisibles sur le panneau clair */
+.score-game-card .score-actions-bar {
+  background: transparent;
+  border: 0;
+  padding: .15rem 0 0;
+  margin-top: 1rem;
+}
+.score-game-card .round-controls .round-btn,
+.score-game-card .round-actions .round-btn,
+.score-game-card .edit-actions .round-btn,
+.score-game-card .endgame-actions .round-btn,
+.score-game-card .round-controls button {
+  color: var(--text) !important;
+  background: #fffdf8 !important;
+  border: 1px solid rgba(36,25,20,.15) !important;
+  box-shadow: 0 8px 18px rgba(31, 19, 12, .10);
+  opacity: 1 !important;
+}
+.score-game-card .round-controls #addRoundBtn,
+.score-game-card .round-actions button:first-child,
+.score-game-card .edit-actions button:first-child,
+.score-game-card .endgame-actions button:first-child {
+  color: #fff !important;
+  background: linear-gradient(180deg, var(--copper), #8f4b28) !important;
+  border-color: rgba(255,255,255,.25) !important;
+}
+.score-game-card .round-controls #finishGameBtn {
+  color: #fff !important;
+  background: linear-gradient(180deg, #5c3028, #351d18) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+.round-btn:disabled,
+.score-game-card button:disabled {
+  opacity: .45 !important;
+  cursor: not-allowed;
+}
+
+/* Modale de confirmation maison, cohérente avec les autres modales */
+.confirm-overlay {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  background: rgba(10, 7, 5, .76) !important;
+}
+.confirm-box {
+  width: min(460px, 100%) !important;
+  padding: clamp(1.2rem, 3vw, 1.6rem) !important;
+  border-radius: 24px !important;
+  background: linear-gradient(180deg, var(--surface), #f6ead9) !important;
+  color: var(--text) !important;
+  border: 1px solid rgba(255,255,255,.75) !important;
+  box-shadow: var(--shadow) !important;
+}
+.confirm-box h2 {
+  margin: 0 0 .55rem;
+  color: var(--text);
+  font-size: 1.35rem;
+}
+.confirm-box p {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.confirm-box .modal-actions-row {
+  justify-content: flex-end;
+  margin-top: 1.2rem;
+}
+.confirm-box .round-btn,
+.confirm-box .yes-btn,
+.confirm-box .no-btn {
+  min-width: 132px;
+}
+
+/* Footer global : compact et constant */
+.app-footer {
+  min-height: var(--footer-h) !important;
+  padding-top: .5rem !important;
+  padding-bottom: calc(.5rem + env(safe-area-inset-bottom)) !important;
+}
+.footer-inner {
+  min-height: 48px;
+}
+
+@media (max-width: 900px) {
+  :root { --footer-h: 104px; }
+  .game-grid { grid-template-columns: repeat(auto-fill, minmax(108px, 132px)); }
+  .game-card img { width: min(76px, 76%) !important; max-height: 76px !important; }
+}
+
+@media (max-width: 560px) {
+  :root { --footer-h: 118px; }
+  .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .55rem; }
+  .game-card { border-radius: 15px !important; padding: .45rem !important; }
+  .game-card img { width: min(62px, 78%) !important; max-height: 62px !important; }
+  .score-setup-modal { max-height: calc(100dvh - var(--footer-h) - .75rem); width: calc(100vw - .7rem); }
+  .score-setup-footer .round-btn,
+  .score-setup-footer a.round-btn { width: 100%; min-width: 0; }
+  .score-game-card .round-controls .round-btn { width: 100%; }
+  .confirm-box .modal-actions-row { justify-content: stretch; }
+  .confirm-box .round-btn,
+  .confirm-box .yes-btn,
+  .confirm-box .no-btn { width: 100%; }
+}
+
+/* Patch V0.6.3 — refonte UX gestion des joueurs */
+.players-manager-shell {
+  width: min(980px, calc(100vw - 2rem)) !important;
+  max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: linear-gradient(180deg, #fffaf0, #f2e6d2) !important;
+}
+.players-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: clamp(1rem, 2.6vw, 1.6rem) clamp(1rem, 3vw, 2rem) 1rem;
+  border-bottom: 1px solid rgba(36,25,20,.10);
+}
+.players-manager-header h3 {
+  margin: .15rem 0 .25rem !important;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  color: var(--text) !important;
+}
+.players-manager-subtitle {
+  margin: 0;
+  color: var(--text-soft);
+  font-weight: 700;
+}
+.players-icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px !important;
+  border: 1px solid rgba(36,25,20,.12) !important;
+  background: rgba(255,255,255,.68) !important;
+  color: var(--text) !important;
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+}
+.players-manager-toolbar {
+  padding: .9rem clamp(1rem, 3vw, 2rem);
+  display: flex;
+  justify-content: flex-start;
+}
+.players-create-btn {
+  min-height: 46px;
+  padding: .75rem 1.15rem;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255,255,255,.22) !important;
+  background: linear-gradient(180deg, var(--copper), #934d29) !important;
+  color: #fffaf0 !important;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  box-shadow: 0 12px 24px rgba(80,38,18,.18);
+  cursor: pointer;
+}
+.players-list-modern {
+  max-height: calc(100dvh - var(--footer-h) - 220px);
+  overflow: auto;
+  padding: 0 clamp(1rem, 3vw, 2rem) clamp(1rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: .8rem;
+}
+.player-row-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .9rem;
+  padding: .75rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,.70);
+  border: 1px solid rgba(36,25,20,.10);
+  box-shadow: 0 8px 18px rgba(36,25,20,.07);
+}
+.player-row-identity {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  min-width: 0;
+}
+.player-row-identity img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f5ede1;
+  border: 1px solid rgba(36,25,20,.08);
+  flex: 0 0 auto;
+}
+.player-row-identity strong {
+  display: block;
+  color: var(--text);
+  font-weight: 900;
+  overflow-wrap: anywhere;
+  line-height: 1.1;
+}
+.player-row-identity span {
+  display: block;
+  margin-top: .18rem;
+  color: var(--text-soft);
+  font-size: .84rem;
+  font-weight: 700;
+}
+.player-row-actions {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.players-small-btn {
+  min-height: 36px;
+  padding: .52rem .7rem;
+  border-radius: 999px !important;
+  border: 1px solid rgba(36,25,20,.12) !important;
+  background: #fffaf0 !important;
+  color: var(--text) !important;
+  font-size: .84rem;
+  font-weight: 900;
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  cursor: pointer;
+}
+.players-danger-btn {
+  color: #7f241d !important;
+  background: #fff1ed !important;
+}
+.players-empty-state {
+  grid-column: 1 / -1;
+  min-height: 180px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  gap: .35rem;
+  padding: 2rem;
+  border-radius: 22px;
+  border: 1px dashed rgba(36,25,20,.22);
+  color: var(--text-soft);
+  background: rgba(255,255,255,.45);
+}
+.players-empty-state strong {
+  color: var(--text);
+  font-size: 1.15rem;
+}
+.player-form-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(.8rem, 3vw, 1.6rem);
+  background: rgba(10,7,5,.76);
+  backdrop-filter: blur(12px);
+}
+.player-form-modal {
+  width: min(760px, 100%);
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  border-radius: 28px;
+  background: linear-gradient(180deg, #fffaf0, #f1e4cf);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,.68);
+  box-shadow: var(--shadow);
+}
+.player-form-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: clamp(1rem, 3vw, 1.6rem) clamp(1rem, 3vw, 1.8rem) .9rem;
+  border-bottom: 1px solid rgba(36,25,20,.10);
+}
+.player-form-header h2 {
+  margin: .1rem 0 .35rem;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  color: var(--text);
+}
+.player-form-header p {
+  margin: 0;
+  color: var(--text-soft);
+  font-weight: 700;
+  line-height: 1.45;
+}
+.player-form-field {
+  display: grid;
+  gap: .45rem;
+  padding: 1rem clamp(1rem, 3vw, 1.8rem) .7rem;
+}
+.player-form-field span,
+.player-form-avatar-title {
+  color: var(--text);
+  font-weight: 900;
+}
+.player-form-field input {
+  width: 100%;
+  min-height: 48px;
+  padding: .8rem 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(36,25,20,.14);
+  background: #fffdf8;
+  color: var(--text);
+  font: inherit;
+  outline: none;
+}
+.player-form-field input:focus {
+  border-color: var(--copper);
+  box-shadow: 0 0 0 4px rgba(183,101,52,.14);
+}
+.player-form-avatar-title {
+  padding: .3rem clamp(1rem, 3vw, 1.8rem) .25rem;
+}
+.avatar-picker-grid {
+  padding: .5rem clamp(1rem, 3vw, 1.8rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(78px, 1fr));
+  gap: .65rem;
+}
+.avatar-picker-option {
+  min-height: 78px;
+  border-radius: 18px !important;
+  border: 1px solid rgba(36,25,20,.10) !important;
+  background: rgba(255,255,255,.68) !important;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+.avatar-picker-option:hover {
+  transform: translateY(-2px);
+  border-color: rgba(183,101,52,.35) !important;
+}
+.avatar-picker-option.selected {
+  background: #fff6df !important;
+  border-color: var(--copper) !important;
+  box-shadow: 0 0 0 4px rgba(226,183,104,.25);
+}
+.avatar-picker-option img {
+  width: 58px;
+  height: 58px;
+  object-fit: contain;
+}
+.player-form-actions {
+  position: sticky;
+  bottom: 0;
+  padding: .9rem clamp(1rem, 3vw, 1.8rem) clamp(1rem, 3vw, 1.5rem);
+  display: flex;
+  justify-content: flex-end;
+  gap: .7rem;
+  background: linear-gradient(180deg, rgba(255,250,240,.84), #fffaf0);
+  border-top: 1px solid rgba(36,25,20,.10);
+}
+.player-form-modal .error-message {
+  margin: 1rem clamp(1rem, 3vw, 1.8rem) 0;
+}
+@media (max-width: 720px) {
+  .players-list-modern { grid-template-columns: 1fr; }
+  .player-row-card { align-items: flex-start; flex-direction: column; }
+  .player-row-actions { width: 100%; justify-content: stretch; }
+  .players-small-btn { flex: 1; }
+  .player-form-actions { flex-direction: column-reverse; }
+  .player-form-actions .round-btn { width: 100%; }
+}
+
+/* Patch V0.6.3 — finitions UX : joueurs, actions de partie et modales */
+:root { --footer-h: 74px; }
+
+/* Accueil : cartes vraiment proches de l'image, sans grosses plaques */
+.game-grid {
+  grid-template-columns: repeat(auto-fill, minmax(104px, 128px)) !important;
+  gap: clamp(.7rem, 1.45vw, 1rem) !important;
+}
+.game-card {
+  aspect-ratio: 1.28 / 1 !important;
+  padding: .42rem !important;
+  border-radius: 16px !important;
+}
+.game-card img {
+  width: min(82px, 82%) !important;
+  max-height: 82px !important;
+}
+
+/* Gestion joueurs : une vraie fenêtre avec header/toolbar fixes et liste scrollable */
+.popup {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  padding-bottom: calc(var(--footer-h) + 1rem + env(safe-area-inset-bottom)) !important;
+}
+.players-manager-shell {
+  width: min(980px, calc(100vw - 2rem)) !important;
+  height: min(720px, calc(100dvh - var(--footer-h) - 2rem)) !important;
+  max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+}
+.players-manager-header,
+.players-manager-toolbar {
+  flex: 0 0 auto !important;
+}
+.players-list-modern {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow-y: auto !important;
+  padding-bottom: 2rem !important;
+  scroll-padding-bottom: 2rem;
+}
+.player-row-card {
+  min-height: 84px;
+}
+
+/* Modales de manche/édition/fin : bouton toujours visible, style identique au reste */
+.round-modal,
+.edit-modal,
+.endgame-modal,
+.score-guest-modal,
+.confirm-box {
+  max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
+  overflow: auto !important;
+}
+.round-actions,
+.edit-actions,
+.endgame-actions,
+.modal-actions-row {
+  border-top: 1px solid rgba(36,25,20,.10);
+  padding-top: 1rem;
+}
+.round-actions button,
+.edit-actions button,
+.endgame-actions button,
+.confirm-box button,
+.score-guest-modal button,
+.popupContent button {
+  min-height: 44px;
+  border-radius: 999px !important;
+  padding: .72rem 1.05rem !important;
+  font-weight: 900 !important;
+  border: 1px solid rgba(36,25,20,.14) !important;
+  background: #fffdf8 !important;
+  color: var(--text) !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  box-shadow: 0 8px 18px rgba(31,19,12,.10);
+  cursor: pointer;
+}
+.round-actions button:first-child,
+.edit-actions button:first-child,
+.endgame-actions #restartGameBtn,
+.confirm-box .yes-btn,
+.score-guest-modal #scoreGuestOk,
+.player-form-actions .score-primary-action {
+  background: linear-gradient(180deg, var(--copper), #8f4b28) !important;
+  color: #fffaf0 !important;
+  border-color: rgba(255,255,255,.28) !important;
+}
+.endgame-actions #continueGameBtn,
+.endgame-actions #homeGameBtn,
+.round-actions #cancelRoundBtn,
+.edit-actions #cancelEditBtn,
+.confirm-box .no-btn {
+  background: #fffdf8 !important;
+  color: var(--text) !important;
+}
+
+/* Actions de l'écran de partie : lisibles sur fond clair */
+.score-actions-bar.round-controls {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .75rem;
+  align-items: stretch;
+}
+.score-actions-bar.round-controls .round-btn {
+  min-height: 46px;
+  padding: .75rem .9rem;
+  color: var(--text) !important;
+  background: #fffdf8 !important;
+  border: 1px solid rgba(36,25,20,.14) !important;
+  box-shadow: 0 8px 18px rgba(31,19,12,.10) !important;
+  opacity: 1 !important;
+}
+.score-actions-bar.round-controls #addRoundBtn,
+.score-actions-bar.round-controls #editRoundsBtn {
+  background: linear-gradient(180deg, var(--copper), #8f4b28) !important;
+  color: #fffaf0 !important;
+  border-color: rgba(255,255,255,.28) !important;
+}
+.score-actions-bar.round-controls #finishGameBtn {
+  background: linear-gradient(180deg, #5c3028, #351d18) !important;
+  color: #fffaf0 !important;
+}
+.score-actions-bar.round-controls #newGameBtn {
+  background: #fffdf8 !important;
+  color: var(--text) !important;
+}
+.score-actions-bar.round-controls .round-btn:disabled,
+.score-actions-bar.round-controls button:disabled {
+  opacity: .65 !important;
+  background: #efe3d2 !important;
+  color: #7d6a59 !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 900px) {
+  :root { --footer-h: 104px; }
+  .score-actions-bar.round-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .players-manager-shell { width: min(760px, calc(100vw - 1rem)) !important; }
+}
+@media (max-width: 560px) {
+  :root { --footer-h: 118px; }
+  .game-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+  .game-card img { width: min(58px, 78%) !important; max-height: 58px !important; }
+  .players-manager-shell {
+    width: calc(100vw - .75rem) !important;
+    height: calc(100dvh - var(--footer-h) - .75rem) !important;
+    border-radius: 20px !important;
+  }
+  .players-list-modern { grid-template-columns: 1fr !important; }
+  .score-actions-bar.round-controls { grid-template-columns: 1fr; }
+  .round-actions button,
+  .edit-actions button,
+  .endgame-actions button,
+  .confirm-box button { width: 100%; }
+}
+
+/* Patch V0.6.3 — tableau desktop complet avec 10 joueurs
+   Objectif : sur ordinateur, le tableau doit tenir dans la carte sans scroll horizontal.
+   La version mobile responsive sera retravaillée plus tard. */
+@media (min-width: 1024px) {
+  .score-game-card {
+    width: min(1500px, calc(100vw - 5rem));
+    max-width: none;
+    padding: clamp(1.35rem, 2vw, 2rem);
+  }
+
+  .score-summary-grid {
+    gap: .75rem;
+  }
+
+  .table-wrapper {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
+  .score-table {
+    width: 100%;
+    min-width: 0 !important;
+    table-layout: fixed;
+  }
+
+  .score-table th,
+  .score-table td {
+    padding: .58rem .35rem;
+    font-size: clamp(.78rem, .72vw, .95rem);
+    line-height: 1.12;
+    overflow: hidden;
+  }
+
+  .score-table th:first-child,
+  .score-table td:first-child {
+    width: 104px;
+    min-width: 104px;
+    max-width: 104px;
+  }
+
+  .score-entity-head {
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    justify-items: center;
+    gap: .18rem;
+  }
+
+  .score-avatar-stack {
+    min-height: 30px;
+  }
+
+  .score-avatar-stack img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .score-entity-head strong,
+  .score-entity-head span,
+  .score-table th span,
+  .score-table th strong {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .score-rank-badge {
+    width: 30px;
+    height: 30px;
+    font-size: .85rem;
+  }
+
+  .score-actions-bar {
+    gap: .75rem;
+    justify-content: center;
+  }
+
+  .score-actions-bar .round-btn {
+    min-width: 0;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 1400px) {
+  .score-game-card {
+    width: min(1540px, calc(100vw - 7rem));
+  }
+
+  .score-table th:first-child,
+  .score-table td:first-child {
+    width: 116px;
+    min-width: 116px;
+    max-width: 116px;
+  }
+
+  .score-table th,
+  .score-table td {
+    padding: .65rem .45rem;
+  }
+}
+
+/* Patch V0.6.3 — gestion joueurs : cartes sans débordement + vrai bouton fermer */
+.players-manager-shell {
+  width: min(1060px, calc(100vw - 2rem)) !important;
+}
+.players-list-modern {
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+  gap: .75rem !important;
+}
+.player-row-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: .65rem !important;
+  min-height: 0 !important;
+  padding: .72rem !important;
+  overflow: hidden !important;
+}
+.player-row-identity {
+  width: 100% !important;
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: 54px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: .7rem !important;
+}
+.player-row-identity img {
+  width: 50px !important;
+  height: 50px !important;
+}
+.player-row-identity strong,
+.player-row-identity span {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.player-row-identity strong {
+  white-space: nowrap !important;
+}
+.player-row-actions {
+  width: 100% !important;
+  min-width: 0 !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: .5rem !important;
+  justify-content: stretch !important;
+}
+.players-small-btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 38px !important;
+  padding: .55rem .58rem !important;
+  font-size: .82rem !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+.players-small-btn .ui-icon {
+  width: 15px !important;
+  height: 15px !important;
+  flex: 0 0 auto !important;
+}
+.players-icon-btn {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 999px !important;
+  background: #fffdf8 !important;
+  border: 1px solid rgba(36,25,20,.14) !important;
+  color: var(--text) !important;
+  font-size: 0 !important;
+  box-shadow: 0 8px 18px rgba(31,19,12,.10) !important;
+}
+.players-icon-btn .ui-icon,
+.players-icon-btn img {
+  display: none !important;
+}
+.players-icon-btn::before,
+.ui-close-symbol {
+  content: "×";
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text);
+  font-size: 1.75rem;
+  line-height: 1;
+  font-weight: 900;
+  transform: translateY(-1px);
+}
+.players-icon-btn:hover {
+  background: #fff3df !important;
+  border-color: rgba(183,101,52,.35) !important;
+}
+@media (min-width: 1180px) {
+  .players-list-modern {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Patch V0.6.3 — gestion joueurs : boutons visibles + vraie icône close.png */
+.players-manager-shell {
+  width: min(1060px, calc(100vw - 2rem)) !important;
+}
+
+.players-list-modern {
+  grid-template-columns: repeat(auto-fill, minmax(315px, 1fr)) !important;
+  gap: .78rem !important;
+}
+
+.player-row-card {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) 112px !important;
+  align-items: center !important;
+  gap: .7rem !important;
+  min-height: 92px !important;
+  padding: .72rem .78rem !important;
+  overflow: hidden !important;
+}
+
+.player-row-identity {
+  display: grid !important;
+  grid-template-columns: 54px minmax(0, 1fr) !important;
+  align-items: center !important;
+  gap: .72rem !important;
+  min-width: 0 !important;
+  width: 100% !important;
+}
+
+.player-row-identity img {
+  width: 52px !important;
+  height: 52px !important;
+}
+
+.player-row-identity strong,
+.player-row-identity span {
+  max-width: 100% !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+.player-row-identity strong {
+  white-space: nowrap !important;
+}
+
+.player-row-actions {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: .42rem !important;
+  width: 112px !important;
+  min-width: 112px !important;
+  justify-content: stretch !important;
+  align-content: center !important;
+}
+
+.players-small-btn {
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 34px !important;
+  padding: .46rem .48rem !important;
+  border-radius: 999px !important;
+  font-size: .78rem !important;
+  line-height: 1 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .35rem !important;
+}
+
+.players-small-btn .ui-icon {
+  width: 14px !important;
+  height: 14px !important;
+  display: block !important;
+  flex: 0 0 14px !important;
+}
+
+.players-danger-btn {
+  color: #802019 !important;
+  background: #fff1ed !important;
+  border-color: rgba(128,32,25,.16) !important;
+}
+
+.players-icon-btn {
+  width: 46px !important;
+  height: 46px !important;
+  border-radius: 16px !important;
+  background: #fffdf8 !important;
+  border: 1px solid rgba(36,25,20,.14) !important;
+  box-shadow: 0 8px 18px rgba(31,19,12,.10) !important;
+  display: inline-grid !important;
+  place-items: center !important;
+  font-size: initial !important;
+}
+
+.players-icon-btn::before,
+.ui-close-symbol {
+  content: none !important;
+  display: none !important;
+}
+
+.players-icon-btn .ui-icon,
+.players-icon-btn img {
+  display: block !important;
+  width: 18px !important;
+  height: 18px !important;
+  object-fit: contain !important;
+  opacity: .92 !important;
+}
+
+.players-icon-btn:hover {
+  background: #fff3df !important;
+  border-color: rgba(183,101,52,.35) !important;
+}
+
+@media (min-width: 1180px) {
+  .players-list-modern {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Patch V0.6.3 — corrections desktop : tableaux centrés, 10 joueurs visibles, fermeture lisible */
+@media (min-width: 1024px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  main#gameContainer {
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding-left: clamp(1rem, 2.4vw, 2rem) !important;
+    padding-right: clamp(1rem, 2.4vw, 2rem) !important;
+    box-sizing: border-box !important;
+  }
+
+  #gameContainer .score-game-card {
+    width: min(1320px, calc(100vw - 4rem)) !important;
+    max-width: calc(100vw - 4rem) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+  }
+
+  #gameContainer .score-config-card,
+  #gameContainer .score-setup-modal {
+    width: min(1060px, calc(100vw - 4rem)) !important;
+    max-width: calc(100vw - 4rem) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  #gameContainer .score-setup-overlay {
+    width: 100% !important;
+    max-width: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  #gameContainer .table-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  #gameContainer .score-table {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+  }
+
+  #gameContainer .score-table th,
+  #gameContainer .score-table td {
+    padding: .5rem .22rem !important;
+    font-size: clamp(.72rem, .62vw, .88rem) !important;
+    line-height: 1.05 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  #gameContainer .score-table th:first-child,
+  #gameContainer .score-table td:first-child {
+    width: 78px !important;
+    min-width: 78px !important;
+    max-width: 78px !important;
+  }
+
+  #gameContainer .score-table th:not(:first-child),
+  #gameContainer .score-table td:not(:first-child) {
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
+  #gameContainer .score-entity-head {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: grid !important;
+    justify-items: center !important;
+    gap: .12rem !important;
+  }
+
+  #gameContainer .score-entity-head strong,
+  #gameContainer .score-entity-head small,
+  #gameContainer .score-entity-head span {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  #gameContainer .score-entity-head strong {
+    font-size: clamp(.68rem, .58vw, .82rem) !important;
+  }
+
+  #gameContainer .score-entity-head small {
+    font-size: clamp(.56rem, .5vw, .68rem) !important;
+  }
+
+  #gameContainer .score-avatar-stack {
+    min-height: 28px !important;
+    max-height: 28px !important;
+  }
+
+  #gameContainer .score-avatar-stack img {
+    width: 28px !important;
+    height: 28px !important;
+  }
+
+  #gameContainer .score-rank-badge {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: .78rem !important;
+  }
+
+  #gameContainer .score-actions-bar.round-controls {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  #gameContainer .score-actions-bar.round-controls .round-btn {
+    min-width: 0 !important;
+    width: 100% !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}
+
+@media (min-width: 1500px) {
+  #gameContainer .score-game-card {
+    width: min(1400px, calc(100vw - 5rem)) !important;
+    max-width: calc(100vw - 5rem) !important;
+  }
+
+  #gameContainer .score-table th:first-child,
+  #gameContainer .score-table td:first-child {
+    width: 86px !important;
+    min-width: 86px !important;
+    max-width: 86px !important;
+  }
+}
+
+/* Notice lisible sur le bandeau sombre de préparation */
+.score-setup-hero .score-notice {
+  color: #eef8ed !important;
+  background: rgba(40, 105, 64, .34) !important;
+  border-color: rgba(184, 232, 178, .26) !important;
+  font-weight: 850 !important;
+  text-shadow: 0 1px 1px rgba(0,0,0,.22) !important;
+}
+
+/* Bouton fermer : même PNG, mais rendu visible dans le rond */
+.players-icon-btn {
+  width: 52px !important;
+  height: 52px !important;
+  border-radius: 999px !important;
+}
+
+.players-icon-btn .ui-icon,
+.players-icon-btn img {
+  width: 32px !important;
+  height: 32px !important;
+  object-fit: contain !important;
+  display: block !important;
+  opacity: 1 !important;
+}
+
+/* Les boutons modifier/supprimer gardent leurs petites icônes */
+.players-small-btn .ui-icon,
+.players-small-btn img {
+  width: 14px !important;
+  height: 14px !important;
+}
+
+/* Patch V0.6.3 — accueil : suppression des conteneurs de cartes
+   Les PNG des jeux deviennent les vrais visuels cliquables, avec un léger relief. */
+main > section {
+  max-width: 1040px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+main > section > h2 {
+  margin-left: 0 !important;
+}
+
+.game-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 128px)) !important;
+  justify-content: start !important;
+  align-items: center !important;
+  gap: clamp(1.15rem, 2.2vw, 1.65rem) clamp(1.35rem, 2.8vw, 2rem) !important;
+}
+
+.game-card {
+  width: 128px !important;
+  min-height: 142px !important;
+  aspect-ratio: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  cursor: pointer !important;
+  transition: transform .18s ease, filter .18s ease !important;
+}
+
+.game-card:hover {
+  transform: translateY(-5px) scale(1.035) !important;
+  box-shadow: none !important;
+  filter: saturate(1.08) brightness(1.04) !important;
+}
+
+.game-card:active {
+  transform: translateY(-1px) scale(.99) !important;
+}
+
+.game-card img {
+  width: 112px !important;
+  max-width: 112px !important;
+  height: auto !important;
+  max-height: 132px !important;
+  object-fit: contain !important;
+  border-radius: 7px !important;
+  box-shadow:
+    0 16px 28px rgba(0,0,0,.38),
+    0 5px 10px rgba(0,0,0,.28) !important;
+  filter: drop-shadow(0 2px 1px rgba(255,245,220,.14)) !important;
+  transition: transform .18s ease, box-shadow .18s ease, filter .18s ease !important;
+}
+
+.game-card:hover img {
+  box-shadow:
+    0 22px 38px rgba(0,0,0,.46),
+    0 8px 14px rgba(0,0,0,.32) !important;
+}
+
+/* La carte “Création” peut manquer d'image selon l'état du projet : on garde une zone propre. */
+.game-card img[src*="creation"] {
+  opacity: .92 !important;
+}
+
+@media (max-width: 760px) {
+  .game-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    justify-content: center !important;
+    gap: .9rem !important;
+  }
+
+  .game-card {
+    width: 100% !important;
+    min-height: 112px !important;
+  }
+
+  .game-card img {
+    width: 82px !important;
+    max-width: 82px !important;
+    max-height: 98px !important;
+  }
+}
+
+/* V0.6.3 — Accueil desktop en deux zones : classiques à gauche, modernes/extérieur à droite */
+@media (min-width: 900px) {
+  body:has(.home-main) {
+    overflow-x: hidden;
+  }
+
+  .home-main {
+    width: min(1180px, calc(100vw - 4rem)) !important;
+    max-width: 1180px !important;
+    margin: 0 auto !important;
+    padding: clamp(1.2rem, 2vh, 1.8rem) 0 calc(var(--footer-h) + 1rem) !important;
+  }
+
+  .home-columns {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(2.5rem, 5vw, 5rem);
+    align-items: start;
+  }
+
+  .home-column {
+    min-width: 0;
+    display: grid;
+    gap: clamp(1.35rem, 2.4vh, 2.2rem);
+  }
+
+  .home-section {
+    margin: 0 !important;
+  }
+
+  .home-section > h2 {
+    width: fit-content;
+    margin: 0 0 clamp(.75rem, 1.4vh, 1rem) !important;
+  }
+
+  .home-section .game-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 132px) !important;
+    justify-content: start !important;
+    align-items: center !important;
+    gap: clamp(.85rem, 1.8vh, 1.2rem) clamp(1rem, 1.8vw, 1.45rem) !important;
+  }
+
+  .home-section-classic .game-grid {
+    grid-template-columns: repeat(3, 132px) !important;
+  }
+
+  .home-section-create {
+    display: none !important; /* création personnalisée reviendra plus tard */
+  }
+
+  .game-card {
+    width: 132px !important;
+    min-height: 144px !important;
+    height: 144px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .game-card img {
+    width: 122px !important;
+    max-width: 122px !important;
+    max-height: 140px !important;
+    object-fit: contain !important;
+    filter: drop-shadow(0 13px 18px rgba(0,0,0,.48)) !important;
+    box-shadow: none !important;
+  }
+
+  .game-card:hover img {
+    filter: drop-shadow(0 18px 24px rgba(0,0,0,.56)) saturate(1.08) brightness(1.04) !important;
+  }
+}
+
+/* Patch V0.6.3 — refonte desktop de l'écran de préparation
+   Objectif : un seul vrai scroll utile, boutons toujours visibles, parcours plus logique. */
+@media (min-width: 900px) {
+  body:has(.score-setup-overlay) {
+    overflow: hidden !important;
+  }
+
+  .score-setup-overlay {
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    padding: 1rem 1.25rem calc(var(--footer-h) + 1rem) !important;
+  }
+
+  .score-setup-modal {
+    width: min(1180px, calc(100vw - 3rem)) !important;
+    max-width: min(1180px, calc(100vw - 3rem)) !important;
+    height: min(760px, calc(100dvh - var(--footer-h) - 2rem)) !important;
+    max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    margin: 0 auto !important;
+  }
+
+  .score-setup-hero {
+    flex: 0 0 auto !important;
+    padding: 1rem 1.45rem .95rem !important;
+  }
+
+  .score-setup-kicker {
+    padding: .42rem .75rem !important;
+    font-size: .74rem !important;
+    margin-bottom: .45rem !important;
+  }
+
+  .score-setup-title-row {
+    align-items: center !important;
+  }
+
+  .score-setup-title-row h1,
+  .score-setup-title-row h2 {
+    font-size: clamp(2rem, 3.2vw, 2.9rem) !important;
+    line-height: 1 !important;
+    margin: 0 0 .35rem !important;
+  }
+
+  .score-setup-title-row p {
+    max-width: 820px !important;
+    font-size: clamp(.98rem, 1.3vw, 1.12rem) !important;
+    line-height: 1.35 !important;
+  }
+
+  .score-version {
+    align-self: center !important;
+    padding: .4rem .72rem !important;
+  }
+
+  .score-setup-hero .score-notice {
+    margin-top: .65rem !important;
+    padding: .62rem .85rem !important;
+  }
+
+  .score-setup-steps {
+    flex: 0 0 auto !important;
+    padding: .7rem 1.2rem 0 !important;
+    gap: .45rem !important;
+  }
+
+  .score-step-pill {
+    padding: .4rem .72rem !important;
+    font-size: .8rem !important;
+  }
+
+  .score-setup-grid {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: grid !important;
+    grid-template-columns: minmax(300px, .78fr) minmax(500px, 1.22fr) !important;
+    gap: 1rem !important;
+    padding: 1rem 1.2rem !important;
+    align-items: stretch !important;
+  }
+
+  .score-setup-panel {
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: .95rem !important;
+  }
+
+  .score-panel-head {
+    flex: 0 0 auto !important;
+    margin-bottom: .65rem !important;
+  }
+
+  .score-panel-head h3,
+  .score-panel-head h2 {
+    margin: 0 !important;
+    font-size: 1.2rem !important;
+  }
+
+  .score-panel-head p,
+  .score-helper {
+    font-size: .94rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .score-rules-panel .score-options-grid {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: .3rem !important;
+  }
+
+  .score-players-panel .score-selected-tray {
+    flex: 0 0 auto !important;
+    min-height: 34px !important;
+    max-height: none !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: .38rem !important;
+    margin: 0 0 .55rem !important;
+    padding: 0 !important;
+  }
+
+  .score-selection-placeholder {
+    padding: .2rem 0 !important;
+    font-size: .9rem !important;
+  }
+
+  .score-selected-chip {
+    min-height: 30px !important;
+    max-width: 170px !important;
+    padding: .23rem .5rem .23rem .25rem !important;
+    font-size: .78rem !important;
+    gap: .28rem !important;
+  }
+
+  .score-chip-order,
+  .score-player-order {
+    width: 22px !important;
+    height: 22px !important;
+    font-size: .72rem !important;
+  }
+
+  .score-selected-chip img {
+    width: 24px !important;
+    height: 24px !important;
+    max-width: 24px !important;
+    max-height: 24px !important;
+    flex-basis: 24px !important;
+  }
+
+  .score-selected-chip span:last-of-type {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .score-players-panel .score-player-tiles {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(126px, 1fr)) !important;
+    grid-auto-rows: minmax(96px, auto) !important;
+    align-content: start !important;
+    gap: .65rem !important;
+    padding: .1rem .35rem .2rem .05rem !important;
+  }
+
+  .score-player-tile {
+    min-height: 96px !important;
+    padding: .55rem .45rem !important;
+    border-radius: 16px !important;
+  }
+
+  .score-player-tile img {
+    width: 46px !important;
+    height: 46px !important;
+    margin-bottom: .25rem !important;
+  }
+
+  .score-player-tile strong,
+  .score-player-tile span:not(.score-player-order) {
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+  }
+
+  .score-add-guest-tile {
+    min-height: 96px !important;
+  }
+
+  .score-setup-footer {
+    flex: 0 0 auto !important;
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: .75rem !important;
+    padding: .85rem 1.2rem .95rem !important;
+    margin: 0 !important;
+    background: linear-gradient(180deg, #fff8ee, #f3e7d5) !important;
+    border-top: 1px solid rgba(36,25,20,.12) !important;
+    box-shadow: 0 -8px 20px rgba(31,19,12,.05) !important;
+  }
+
+  .score-setup-footer .round-btn,
+  .score-setup-footer a.round-btn {
+    min-width: 190px !important;
+    min-height: 44px !important;
+    padding: .65rem 1rem !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .score-setup-modal {
+    width: min(1220px, calc(100vw - 4rem)) !important;
+    max-width: min(1220px, calc(100vw - 4rem)) !important;
+  }
+
+  .score-players-panel .score-player-tiles {
+    grid-template-columns: repeat(auto-fill, minmax(136px, 1fr)) !important;
+  }
+}
+
+/* Patch V0.6.3 — Accueil desktop : cartes agrandies, page mieux occupée */
+@media (min-width: 900px) {
+  .home-main {
+    width: min(1320px, calc(100vw - 5rem)) !important;
+    max-width: 1320px !important;
+    padding-top: clamp(1.35rem, 2.4vh, 2rem) !important;
+  }
+
+  .home-columns {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    gap: clamp(3rem, 6vw, 6rem) !important;
+  }
+
+  .home-column {
+    gap: clamp(1.45rem, 2.5vh, 2.25rem) !important;
+  }
+
+  .home-section > h2 {
+    margin-bottom: clamp(.95rem, 1.6vh, 1.25rem) !important;
+  }
+
+  .home-section .game-grid,
+  .home-section-classic .game-grid {
+    grid-template-columns: repeat(3, 170px) !important;
+    gap: clamp(1rem, 2vh, 1.45rem) clamp(1.2rem, 2.1vw, 1.75rem) !important;
+  }
+
+  .game-card {
+    width: 170px !important;
+    height: 190px !important;
+    min-height: 190px !important;
+  }
+
+  .game-card img {
+    width: 152px !important;
+    max-width: 152px !important;
+    max-height: 184px !important;
+    filter:
+      drop-shadow(0 18px 24px rgba(0,0,0,.52))
+      drop-shadow(0 2px 1px rgba(255,245,220,.12)) !important;
+  }
+
+  .game-card:hover img {
+    transform: scale(1.035) !important;
+    filter:
+      drop-shadow(0 24px 32px rgba(0,0,0,.62))
+      saturate(1.08)
+      brightness(1.04) !important;
+  }
+}
+
+@media (min-width: 1400px) {
+  .home-main {
+    width: min(1400px, calc(100vw - 6rem)) !important;
+    max-width: 1400px !important;
+  }
+
+  .home-section .game-grid,
+  .home-section-classic .game-grid {
+    grid-template-columns: repeat(3, 182px) !important;
+    gap: 1.45rem 2.1rem !important;
+  }
+
+  .game-card {
+    width: 182px !important;
+    height: 204px !important;
+    min-height: 204px !important;
+  }
+
+  .game-card img {
+    width: 164px !important;
+    max-width: 164px !important;
+    max-height: 198px !important;
+  }
+}
+
+/* Patch V0.6.3 — Belote/Coinche avancée */
+.belote-readable-notice {
+  color: #f7f1e8 !important;
+  background: rgba(34, 95, 62, .34) !important;
+  border-color: rgba(126, 210, 156, .28) !important;
+}
+
+.belote-setup-grid {
+  grid-template-columns: minmax(320px, .82fr) minmax(520px, 1.35fr) !important;
+}
+
+.belote-options-grid {
+  gap: .72rem !important;
+}
+
+.score-option-check {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .7rem .78rem;
+  border-radius: 14px;
+  background: rgba(36,25,20,.04);
+  border: 1px solid rgba(36,25,20,.08);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.score-option-check input {
+  inline-size: 18px;
+  block-size: 18px;
+  accent-color: var(--copper);
+}
+
+.belote-team-preview {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin-bottom: .75rem;
+}
+
+.belote-team-card {
+  border-radius: 16px;
+  padding: .72rem .82rem;
+  background: linear-gradient(180deg, #fffaf1, #f4e9d7);
+  border: 1px solid rgba(36,25,20,.10);
+}
+
+.belote-team-card strong,
+.belote-team-card span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.belote-team-card strong {
+  color: var(--text);
+  font-size: .92rem;
+}
+
+.belote-team-card span {
+  color: var(--text-soft);
+  font-weight: 700;
+  font-size: .86rem;
+  margin-top: .15rem;
+}
+
+.belote-score-wrap {
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(36,25,20,.11);
+  background: #fff8ed;
+  box-shadow: 0 10px 24px rgba(36,25,20,.08);
+}
+
+.belote-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  color: var(--text);
+}
+
+.belote-table th,
+.belote-table td {
+  padding: .72rem .72rem;
+  text-align: center;
+  border-bottom: 1px solid rgba(36,25,20,.10);
+  border-right: 1px solid rgba(36,25,20,.07);
+  vertical-align: middle;
+}
+
+.belote-table thead th {
+  background: #2b1a12;
+  color: var(--text-on-dark);
+  font-weight: 900;
+}
+
+.belote-table thead th:nth-child(1) { width: 7%; }
+.belote-table thead th:nth-child(2) { width: 16%; }
+.belote-table thead th:nth-child(3) { width: 11%; }
+.belote-table thead th:nth-child(4) { width: 11%; }
+.belote-table thead th:nth-child(5),
+.belote-table thead th:nth-child(6) { width: 14%; }
+.belote-table thead th:nth-child(7) { width: 27%; }
+
+.belote-table tbody tr:nth-child(odd):not(.ranking-row):not(.total-row) td {
+  background: #fffaf2;
+}
+
+.belote-table tbody tr:nth-child(even):not(.ranking-row):not(.total-row) td {
+  background: #f8eddc;
+}
+
+.belote-table .ranking-row td {
+  background: #f3c977 !important;
+  font-weight: 900;
+}
+
+.belote-table .total-row td {
+  background: #8b6c2f !important;
+  color: #fff8ea !important;
+  font-weight: 900;
+}
+
+.belote-empty-row {
+  padding: 1.1rem !important;
+  font-weight: 900;
+  background: #fff8ed !important;
+}
+
+.belote-result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: .35rem .62rem;
+  font-weight: 900;
+  font-size: .85rem;
+}
+
+.belote-result.is-success {
+  color: #1f5637;
+  background: rgba(67,107,81,.16);
+}
+
+.belote-result.is-fail {
+  color: #842e24;
+  background: rgba(164,71,61,.15);
+}
+
+.belote-team-head .score-avatar-stack img {
+  width: 28px;
+  height: 28px;
+  margin-left: -4px;
+}
+
+.belote-team-head strong,
+.belote-team-head small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.belote-round-modal {
+  width: min(980px, calc(100vw - 3rem));
+  max-height: calc(100vh - 4rem);
+  overflow: auto;
+}
+
+.belote-round-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .85rem;
+  margin-top: 1rem;
+}
+
+.belote-round-grid.compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: .65rem;
+}
+
+.belote-round-grid label,
+.belote-manual-values label {
+  display: grid;
+  gap: .35rem;
+  color: var(--text);
+  font-weight: 800;
+}
+
+.belote-subpanel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(36,25,20,.04);
+  border: 1px solid rgba(36,25,20,.08);
+}
+
+.belote-subpanel h3 {
+  margin: 0;
+  color: var(--text);
+}
+
+.belote-manual-check {
+  margin-top: 1rem;
+}
+
+.belote-manual-values {
+  display: none;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .85rem;
+  margin-top: .85rem;
+  padding: .85rem;
+  border-radius: 16px;
+  background: rgba(183,101,52,.08);
+  border: 1px solid rgba(183,101,52,.16);
+}
+
+.belote-manual-values.is-visible {
+  display: grid;
+}
+
+.belote-preview {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .65rem;
+  margin-top: 1rem;
+  padding: .85rem 1rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #fff6e5, #f2dfbb);
+  border: 1px solid rgba(36,25,20,.10);
+  color: var(--text);
+  font-weight: 900;
+}
+
+.belote-preview strong {
+  color: #7c3f20;
+}
+
+.belote-edit-list {
+  display: grid;
+  gap: .7rem;
+  margin: 1rem 0;
+}
+
+.belote-edit-row {
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto auto;
+  align-items: center;
+  gap: .7rem;
+  padding: .75rem;
+  border-radius: 16px;
+  background: #fffaf2;
+  border: 1px solid rgba(36,25,20,.09);
+}
+
+.belote-edit-row span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 1180px) {
+  .belote-game-card {
+    width: min(1520px, calc(100vw - 4rem)) !important;
+    max-width: min(1520px, calc(100vw - 4rem)) !important;
+  }
+}
+
+/* V0.6.3 — Tarot avancé */
+.tarot-setup-modal .score-setup-hero,
+.tarot-setup-modal .score-setup-footer {
+  flex-shrink: 0;
+}
+
+.tarot-options-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.tarot-player-tile img,
+.tarot-player-head img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.tarot-game-card {
+  width: min(1500px, calc(100vw - 120px));
+  margin-inline: auto;
+}
+
+.tarot-score-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  border: 1px solid rgba(46, 30, 22, .12);
+  background: var(--paper, #fff8ec);
+}
+
+.tarot-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: clamp(.78rem, .82vw, .95rem);
+}
+
+.tarot-table th,
+.tarot-table td {
+  padding: .68rem .45rem;
+  text-align: center;
+  border-right: 1px solid rgba(58, 38, 27, .1);
+  border-bottom: 1px solid rgba(58, 38, 27, .1);
+  vertical-align: middle;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tarot-table thead th {
+  background: #2b1911;
+  color: #fff7e9;
+  font-weight: 800;
+}
+
+.tarot-table th:first-child,
+.tarot-table td:first-child {
+  width: 70px;
+  font-weight: 800;
+}
+
+.tarot-table th:nth-child(2),
+.tarot-table td:nth-child(2) { width: 105px; }
+.tarot-table th:nth-child(3),
+.tarot-table td:nth-child(3) { width: 92px; }
+.tarot-table th:nth-child(4),
+.tarot-table td:nth-child(4) { width: 78px; }
+.tarot-table th:nth-child(5),
+.tarot-table td:nth-child(5) { width: 90px; }
+.tarot-table th:last-child,
+.tarot-table td:last-child { width: 150px; }
+
+.tarot-player-head {
+  display: grid;
+  place-items: center;
+  gap: .22rem;
+  min-width: 0;
+}
+
+.tarot-player-head strong {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: inherit;
+}
+
+.tarot-empty-row {
+  padding: 1.15rem !important;
+  color: #2b211b;
+  font-weight: 800;
+}
+
+.tarot-round-modal {
+  width: min(1040px, calc(100vw - 48px));
+  max-height: min(88vh, 850px);
+  overflow: auto;
+}
+
+.tarot-round-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .9rem;
+  margin-top: 1rem;
+}
+
+.tarot-round-grid.compact {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.tarot-round-grid label,
+.tarot-manual-values label {
+  display: grid;
+  gap: .35rem;
+  color: #2b211b;
+  font-weight: 700;
+}
+
+.tarot-round-grid input,
+.tarot-round-grid select,
+.tarot-manual-values input {
+  width: 100%;
+  min-height: 48px;
+  padding: .65rem .85rem;
+  border-radius: 14px;
+  border: 1px solid rgba(58, 38, 27, .16);
+  background: rgba(255,255,255,.82);
+  color: #251913;
+  font: inherit;
+}
+
+.tarot-subpanel {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(250, 241, 226, .8);
+  border: 1px solid rgba(58, 38, 27, .1);
+}
+
+.tarot-subpanel h3 {
+  margin: 0 0 .25rem;
+}
+
+.tarot-manual-values {
+  display: none;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: .75rem;
+  margin-top: .85rem;
+}
+
+.tarot-manual-values.is-visible {
+  display: grid;
+}
+
+.tarot-preview {
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 18px;
+  background: linear-gradient(135deg, rgba(88, 122, 82, .15), rgba(216, 168, 91, .14));
+  border: 1px solid rgba(88, 122, 82, .22);
+  color: #173f28;
+  display: grid;
+  gap: .35rem;
+}
+
+.tarot-preview strong {
+  font-size: 1.05rem;
+}
+
+.tarot-preview div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .7rem;
+}
+
+.tarot-edit-list {
+  display: grid;
+  gap: .65rem;
+  max-height: 52vh;
+  overflow: auto;
+  padding-right: .25rem;
+}
+
+.tarot-edit-row {
+  display: grid;
+  grid-template-columns: 50px 1fr auto auto;
+  gap: .65rem;
+  align-items: center;
+  padding: .8rem;
+  border-radius: 16px;
+  background: rgba(255,255,255,.72);
+  border: 1px solid rgba(58,38,27,.1);
+}
+
+@media (max-width: 1100px) {
+  .tarot-round-grid,
+  .tarot-round-grid.compact { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 900px) {
+  .tarot-score-wrap { overflow-x: hidden; }
+}
+
+
+/* =========================================================
+   Mobile portrait guard — V0.6.3
+   L'appli est pensée en paysage sur mobile/tablette pour les tableaux.
+   ========================================================= */
+@media screen and (max-width: 900px) and (orientation: portrait) {
+  html,
+  body {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden !important;
+    background: #100b08 !important;
+  }
+
+  body > * {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  body::before,
+  body::after {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  body::before {
+    content: "↻";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -120%);
+    z-index: 2147483646;
+    width: 92px;
+    height: 92px;
+    border-radius: 28px;
+    display: grid;
+    place-items: center;
+    font-size: 4.2rem;
+    line-height: 1;
+    font-weight: 900;
+    color: #f6d08c;
+    background:
+      radial-gradient(circle at 35% 25%, rgba(255, 255, 255, .18), transparent 38%),
+      linear-gradient(145deg, #3a2418, #1d120d);
+    border: 1px solid rgba(246, 208, 140, .42);
+    box-shadow: 0 24px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.16);
+  }
+
+  body::after {
+    content: "Tourne ton téléphone en paysage\A pour mieux voir les tableaux de scores.";
+    white-space: pre-line;
+    position: fixed;
+    inset: 0;
+    z-index: 2147483645;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13.5rem 1.5rem 2rem;
+    text-align: center;
+    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: clamp(1.15rem, 5.2vw, 1.75rem);
+    font-weight: 850;
+    line-height: 1.25;
+    color: #fff7ec;
+    background:
+      radial-gradient(circle at 50% 18%, rgba(188, 98, 45, .30), transparent 26%),
+      radial-gradient(circle at 12% 88%, rgba(212, 168, 91, .16), transparent 32%),
+      linear-gradient(180deg, #1c110c 0%, #100907 100%);
+  }
+}

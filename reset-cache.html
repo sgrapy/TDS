@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="fr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reset cache - Taverne</title></head>
+<body style="font-family:system-ui;background:#140d09;color:#fff;padding:24px">
+<h1>Nettoyage cache Taverne</h1>
+<p>Cette page désinstalle les anciens service workers et vide les caches de l'application.</p>
+<button id="reset" style="font-size:18px;padding:12px 18px;border-radius:12px">Nettoyer maintenant</button>
+<pre id="log"></pre>
+<script>
+const log = (m) => document.getElementById('log').textContent += m + '\n';
+document.getElementById('reset').onclick = async () => {
+  try {
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of regs) { await reg.unregister(); log('Service worker supprimé'); }
+    }
+    if ('caches' in window) {
+      const keys = await caches.keys();
+      for (const key of keys) { await caches.delete(key); log('Cache supprimé: ' + key); }
+    }
+    localStorage.removeItem('selectedTheme');
+    log('Terminé. Redirection...');
+    setTimeout(() => location.href = './index.html?fresh=' + Date.now(), 900);
+  } catch (e) { log('Erreur: ' + e.message); }
+};
+</script>
+</body></html>

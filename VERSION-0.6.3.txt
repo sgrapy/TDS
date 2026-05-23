@@ -1,0 +1,9 @@
+La Taverne des Scores — Version 0.6.3
+
+Ajouts :
+- Manifest PWA configuré en orientation paysage.
+- PWA en display fullscreen avec fallback standalone/minimal-ui.
+- Écran de garde en portrait mobile/tablette : demande de tourner l'appareil en paysage.
+- Cache PWA mis à jour vers taverne-des-scores-v0-6-3.
+
+Note : l'orientation est surtout respectée quand l'application est installée comme PWA. Dans un navigateur mobile simple, le système peut limiter le forçage.

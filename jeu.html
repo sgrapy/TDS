@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Jeu – Taverne des Scores</title>
+  <link rel="stylesheet" href="style.css?v=0.6.3">
+  <link rel="icon" href="assets/pwa/taverne-icon.png">
+  <link rel="manifest" href="site.webmanifest?v=0.6.3">
+  <meta name="theme-color" content="#100b08">
+      <!-- Préchargement des polices utilisées -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chewy&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+
+    <!-- confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1 id="gameTitle">Jeu</h1>
+  </header>
+
+  <main id="gameContainer">
+    <!-- Le contenu de chaque jeu sera injecté ici par gameLoader.js -->
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-brand" aria-label="Version de l’application">
+        <span class="footer-emblem"><img src="assets/pwa/taverne-icon-192.png" alt=""></span>
+        <span class="footer-title">Taverne des Scores</span>
+        <span class="footer-version"><img class="ui-icon" src="assets/icons/icon-version.png" alt=""> V0.6.3</span>
+      </div>
+
+      <div class="footer-buttons">
+        <a href="home.html" class="footer-btn"><img class="ui-icon" src="assets/icons/icon-home.png" alt=""> Accueil</a>
+        <button id="aboutFooterButton" class="footer-btn"><img class="ui-icon" src="assets/icons/icon-about.png" alt=""> À propos</button>
+      </div>
+
+      <div id="footerMessage">
+        <p id="rotatingMessage">Bienvenue à la Taverne des Scores !</p>
+      </div>
+    </div>
+  </footer>
+  <script>
+// Tableau de phrases fun
+const messages = [
+"Bienvenue à la Taverne des Scores !",
+"Ici, chaque victoire compte !",
+"Un point de plus, une légende en marche.",
+"Le destin est écrit... en chiffres.",
+"Moins de triche, plus de panache !",
+"Skyjo ou Belote, que le meilleur gagne !",
+"Serez-vous digne de votre équipe ?",
+"La gloire appartient aux persévérants.",
+"Un café, une partie, une victoire ?",
+"Vos scores racontent votre épopée."
+];
+
+// Fonction de changement de message
+function rotateMessages() {
+const messageElement = document.getElementById('rotatingMessage');
+if (!messageElement) return;
+
+setInterval(() => {
+    // Petit effet de fondu
+    messageElement.style.opacity = 0;
+
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * messages.length);
+        messageElement.textContent = messages[randomIndex];
+        messageElement.style.opacity = 0.9;
+    }, 500); // Le temps de transition
+}, 6000); // Change toutes les 6 secondes
+}
+
+   
+document.addEventListener('DOMContentLoaded', rotateMessages);
+</script>
+  <!-- Loader dynamique des scripts de jeu -->
+  <script type="module" src="js/gameLoader.js?v=0.6.3"></script>
+  <script src="appUi.js?v=0.6.3" defer></script>
+  <script src="saveManager.js?v=0.6.3" defer></script>
+
+<script src="pwa-register.js?v=0.6.3" defer></script>
+</body>
+</html>
