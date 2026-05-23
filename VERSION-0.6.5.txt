@@ -1,4 +1,4 @@
-La Taverne des Scores — Version 0.6.5
+La Taverne des Scores — Version 0.6.6
 
 Correctif orientation mobile :
 - suppression du blocage CSS dur en portrait ;
@@ -6,4 +6,4 @@ Correctif orientation mobile :
 - bouton pour vérifier après rotation ;
 - bouton pour continuer quand même si la rotation système est verrouillée ;
 - manifest configuré en paysage primary ;
-- cache PWA mis à jour vers taverne-des-scores-v0-6-4.
+- cache PWA mis à jour vers taverne-des-scores-v0-6-6.

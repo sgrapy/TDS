@@ -4,7 +4,7 @@ export function init(container) {
   createScoreGame(container, {
     slug: 'simonette',
     title: 'Simonette',
-    description: 'Compteur Simonette harmonisé. Pour cette V0.6.4, les points sont saisis manche par manche ; on pourra remettre les contrats automatiques ensuite si tu veux.',
+    description: 'Compteur Simonette harmonisé. Pour cette V0.6.6, les points sont saisis manche par manche ; on pourra remettre les contrats automatiques ensuite si tu veux.',
     minPlayers: 2,
     maxPlayers: 6,
     defaultTarget: 0,

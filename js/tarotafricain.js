@@ -4,7 +4,7 @@ export function init(container) {
   createScoreGame(container, {
     slug: 'tarotafricain',
     title: 'Tarot africain',
-    description: 'Compteur souple pour le Tarot africain. Cette V0.6.4 permet de noter les points manche par manche, avant d’affiner les règles exactes.',
+    description: 'Compteur souple pour le Tarot africain. Cette V0.6.6 permet de noter les points manche par manche, avant d’affiner les règles exactes.',
     minPlayers: 3,
     maxPlayers: 8,
     defaultTarget: 0,

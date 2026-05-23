@@ -1,7 +1,7 @@
 // js/scoreGameEngine.js
-// Moteur commun V0.6.5 : configuration, scores, édition des manches et sauvegarde automatique.
+// Moteur commun V0.6.6 : configuration, scores, édition des manches et sauvegarde automatique.
 
-const APP_VERSION = '0.6.5';
+const APP_VERSION = '0.6.6';
 const DEFAULT_AVATAR = 'avatar24.png';
 const AVATAR_PATH = 'assets/avatars/';
 const ICON_PATH = 'assets/icons/';
@@ -183,9 +183,8 @@ export function createScoreGame(container, config) {
           </div>
 
           <div class="score-setup-steps" aria-label="Étapes de préparation">
-            <span class="score-step-pill is-active">1 · Règles</span>
-            <span class="score-step-pill is-active">2 · Joueurs</span>
-            <span class="score-step-pill">3 · Lancer</span>
+            <button class="score-step-pill is-active" type="button" data-prep-step="rules">1 · Règles</button>
+            <button class="score-step-pill" type="button" data-prep-step="players">2 · Joueurs</button>
           </div>
 
           <div class="score-setup-grid">
@@ -214,9 +213,11 @@ export function createScoreGame(container, config) {
           </div>
 
           <div class="score-setup-footer">
-            <button class="round-btn score-primary-action" id="startScoreGame">${iconMarkup('start')} Lancer la partie</button>
-            <button class="round-btn score-secondary" id="clearSavedGame">${iconMarkup('clear')} Effacer sauvegarde</button>
-            <a class="round-btn score-secondary" href="home.html">${iconMarkup('home')} Accueil</a>
+            <button class="round-btn score-secondary prep-back-btn" id="prepBackStep" type="button">${iconMarkup('home')} Règles</button>
+            <button class="round-btn score-primary-action prep-next-btn" id="prepNextStep" type="button">${iconMarkup('players')} Choisir les joueurs</button>
+            <button class="round-btn score-primary-action prep-start-btn" id="startScoreGame">${iconMarkup('start')} Lancer la partie</button>
+            <button class="round-btn score-secondary prep-clear-btn" id="clearSavedGame">${iconMarkup('clear')} Effacer sauvegarde</button>
+            <a class="round-btn score-secondary prep-home-btn" href="home.html">${iconMarkup('home')} Accueil</a>
           </div>
         </section>
       </div>
@@ -225,6 +226,7 @@ export function createScoreGame(container, config) {
     renderOptions();
     renderPlayerTiles();
     updatePlayerRuleText();
+    setupPrepSteps();
 
     container.querySelector('#startScoreGame').addEventListener('click', startGame);
     container.querySelector('#clearSavedGame').addEventListener('click', () => {
@@ -232,6 +234,34 @@ export function createScoreGame(container, config) {
       showToast('Sauvegarde effacée.');
       renderConfig(false);
     });
+  }
+
+
+  function setupPrepSteps() {
+    const modal = container.querySelector('.score-setup-modal');
+    if (!modal) return;
+
+    const stepButtons = [...modal.querySelectorAll('[data-prep-step]')];
+    const backButton = modal.querySelector('#prepBackStep');
+    const nextButton = modal.querySelector('#prepNextStep');
+    const startButton = modal.querySelector('#startScoreGame');
+
+    function setStep(step) {
+      modal.dataset.mobileStep = step;
+      stepButtons.forEach(button => button.classList.toggle('is-active', button.dataset.prepStep === step));
+      if (startButton) startButton.classList.toggle('is-visible-step', step === 'players');
+      if (backButton) backButton.classList.toggle('is-visible-step', step === 'players');
+      if (nextButton) nextButton.classList.toggle('is-hidden-step', step === 'players');
+    }
+
+    stepButtons.forEach(button => {
+      button.addEventListener('click', () => setStep(button.dataset.prepStep));
+    });
+
+    nextButton?.addEventListener('click', () => setStep('players'));
+    backButton?.addEventListener('click', () => setStep('rules'));
+
+    setStep('rules');
   }
 
   function renderOptions() {

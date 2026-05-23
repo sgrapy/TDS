@@ -1,4 +1,4 @@
-/* La Taverne des Scores — Design system V0.6.4
+/* La Taverne des Scores — Design system V0.6.6
    Thèmes supprimés : une base unique, lisible, responsive et prête pour un futur mode nuit. */
 
 :root {
@@ -454,7 +454,7 @@ main > section > h2 {
   .score-actions-bar .round-btn, .score-setup-footer .round-btn, .round-actions .round-btn, .edit-actions .round-btn, .endgame-actions .round-btn { width: 100%; }
 }
 
-/* Patch V0.6.4 — corrections lisibilité, scroll et layout */
+/* Patch V0.6.6 — corrections lisibilité, scroll et layout */
 :root {
   --footer-h: 76px;
   --content-max: 1120px;
@@ -759,7 +759,7 @@ main {
 }
 
 
-/* Patch V0.6.4 — tuiles compactes, footers harmonisés, boutons lisibles */
+/* Patch V0.6.6 — tuiles compactes, footers harmonisés, boutons lisibles */
 :root {
   --footer-h: 74px;
   --content-max: 1120px;
@@ -921,7 +921,7 @@ main {
   .confirm-box .no-btn { width: 100%; }
 }
 
-/* Patch V0.6.4 — refonte UX gestion des joueurs */
+/* Patch V0.6.6 — refonte UX gestion des joueurs */
 .players-manager-shell {
   width: min(980px, calc(100vw - 2rem)) !important;
   max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
@@ -1187,7 +1187,7 @@ main {
   .player-form-actions .round-btn { width: 100%; }
 }
 
-/* Patch V0.6.4 — finitions UX : joueurs, actions de partie et modales */
+/* Patch V0.6.6 — finitions UX : joueurs, actions de partie et modales */
 :root { --footer-h: 74px; }
 
 /* Accueil : cartes vraiment proches de l'image, sans grosses plaques */
@@ -1351,7 +1351,7 @@ main {
   .confirm-box button { width: 100%; }
 }
 
-/* Patch V0.6.4 — tableau desktop complet avec 10 joueurs
+/* Patch V0.6.6 — tableau desktop complet avec 10 joueurs
    Objectif : sur ordinateur, le tableau doit tenir dans la carte sans scroll horizontal.
    La version mobile responsive sera retravaillée plus tard. */
 @media (min-width: 1024px) {
@@ -1453,7 +1453,7 @@ main {
   }
 }
 
-/* Patch V0.6.4 — gestion joueurs : cartes sans débordement + vrai bouton fermer */
+/* Patch V0.6.6 — gestion joueurs : cartes sans débordement + vrai bouton fermer */
 .players-manager-shell {
   width: min(1060px, calc(100vw - 2rem)) !important;
 }
@@ -1551,7 +1551,7 @@ main {
   }
 }
 
-/* Patch V0.6.4 — gestion joueurs : boutons visibles + vraie icône close.png */
+/* Patch V0.6.6 — gestion joueurs : boutons visibles + vraie icône close.png */
 .players-manager-shell {
   width: min(1060px, calc(100vw - 2rem)) !important;
 }
@@ -1674,7 +1674,7 @@ main {
   }
 }
 
-/* Patch V0.6.4 — corrections desktop : tableaux centrés, 10 joueurs visibles, fermeture lisible */
+/* Patch V0.6.6 — corrections desktop : tableaux centrés, 10 joueurs visibles, fermeture lisible */
 @media (min-width: 1024px) {
   html,
   body {
@@ -1856,7 +1856,7 @@ main {
   height: 14px !important;
 }
 
-/* Patch V0.6.4 — accueil : suppression des conteneurs de cartes
+/* Patch V0.6.6 — accueil : suppression des conteneurs de cartes
    Les PNG des jeux deviennent les vrais visuels cliquables, avec un léger relief. */
 main > section {
   max-width: 1040px !important;
@@ -1948,7 +1948,7 @@ main > section > h2 {
   }
 }
 
-/* V0.6.4 — Accueil desktop en deux zones : classiques à gauche, modernes/extérieur à droite */
+/* V0.6.6 — Accueil desktop en deux zones : classiques à gauche, modernes/extérieur à droite */
 @media (min-width: 900px) {
   body:has(.home-main) {
     overflow-x: hidden;
@@ -2025,7 +2025,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.4 — refonte desktop de l'écran de préparation
+/* Patch V0.6.6 — refonte desktop de l'écran de préparation
    Objectif : un seul vrai scroll utile, boutons toujours visibles, parcours plus logique. */
 @media (min-width: 900px) {
   body:has(.score-setup-overlay) {
@@ -2260,7 +2260,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.4 — Accueil desktop : cartes agrandies, page mieux occupée */
+/* Patch V0.6.6 — Accueil desktop : cartes agrandies, page mieux occupée */
 @media (min-width: 900px) {
   .home-main {
     width: min(1320px, calc(100vw - 5rem)) !important;
@@ -2336,7 +2336,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.4 — Belote/Coinche avancée */
+/* Patch V0.6.6 — Belote/Coinche avancée */
 .belote-readable-notice {
   color: #f7f1e8 !important;
   background: rgba(34, 95, 62, .34) !important;
@@ -2608,7 +2608,7 @@ main > section > h2 {
   }
 }
 
-/* V0.6.4 — Tarot avancé */
+/* V0.6.6 — Tarot avancé */
 .tarot-setup-modal .score-setup-hero,
 .tarot-setup-modal .score-setup-footer {
   flex-shrink: 0;
@@ -2813,7 +2813,7 @@ main > section > h2 {
 
 
 /* =========================================================
-   V0.6.4 — Aide orientation mobile non bloquante
+   V0.6.6 — Aide orientation mobile non bloquante
    Le manifest demande le paysage, mais certains téléphones ou navigateurs
    peuvent ignorer cette demande si la rotation système est verrouillée.
    ========================================================= */
@@ -2911,7 +2911,7 @@ body.orientation-guard-active {
 }
 
 /* =========================================================
-   V0.6.5 — Refonte paysage mobile PWA
+   V0.6.6 — Refonte paysage mobile PWA
    Objectif : footer compact, accueil lisible, préparation et tableaux jouables.
    ========================================================= */
 @media (max-width: 900px) and (orientation: landscape) {
@@ -3391,5 +3391,111 @@ body.orientation-guard-active {
 
   .score-setup-footer {
     grid-template-columns: 1fr !important;
+  }
+}
+
+
+/* =========================================================
+   V0.6.6 — Préparation mobile paysage en 2 étapes
+   Étape 1 : règles seules. Étape 2 : joueurs seuls + lancement.
+   ========================================================= */
+@media (max-width: 900px) and (orientation: landscape) {
+  .score-setup-modal[data-mobile-step="rules"] .score-players-panel,
+  .score-setup-modal[data-mobile-step="players"] .score-rules-panel {
+    display: none !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .score-setup-grid,
+  .score-setup-modal[data-mobile-step="players"] .score-setup-grid,
+  .score-setup-modal[data-mobile-step="rules"] .belote-setup-grid,
+  .score-setup-modal[data-mobile-step="players"] .belote-setup-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .score-rules-panel,
+  .score-setup-modal[data-mobile-step="players"] .score-players-panel {
+    display: flex !important;
+  }
+
+  .score-setup-steps {
+    display: flex !important;
+    justify-content: center !important;
+  }
+
+  .score-step-pill {
+    border: 1px solid rgba(36,25,20,.10) !important;
+    cursor: pointer !important;
+  }
+
+  .score-step-pill.is-active {
+    background: linear-gradient(180deg, rgba(183,101,52,.96), rgba(143,75,40,.96)) !important;
+    color: #fffaf0 !important;
+    border-color: rgba(255,255,255,.24) !important;
+  }
+
+  .score-setup-footer,
+  .tarot-setup-modal .score-setup-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .prep-back-btn,
+  .score-setup-modal[data-mobile-step="rules"] .prep-start-btn,
+  .score-setup-modal[data-mobile-step="rules"] .prep-clear-btn {
+    display: none !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .prep-next-btn,
+  .score-setup-modal[data-mobile-step="rules"] .prep-home-btn {
+    display: inline-flex !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .prep-next-btn {
+    display: none !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .prep-back-btn,
+  .score-setup-modal[data-mobile-step="players"] .prep-start-btn,
+  .score-setup-modal[data-mobile-step="players"] .prep-clear-btn,
+  .score-setup-modal[data-mobile-step="players"] .prep-home-btn {
+    display: inline-flex !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .score-setup-footer,
+  .tarot-setup-modal[data-mobile-step="players"] .score-setup-footer {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .score-setup-footer .round-btn {
+    font-size: .78rem !important;
+    padding-inline: .35rem !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .score-options-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .score-rules-panel {
+    overflow: hidden !important;
+  }
+
+  .score-setup-modal[data-mobile-step="rules"] .score-rules-panel .score-options-grid {
+    overflow-y: auto !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .score-player-tiles {
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)) !important;
+  }
+}
+
+@media (max-width: 720px) and (orientation: landscape) {
+  .score-setup-modal[data-mobile-step="rules"] .score-options-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .score-setup-modal[data-mobile-step="players"] .score-setup-footer,
+  .tarot-setup-modal[data-mobile-step="players"] .score-setup-footer {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }

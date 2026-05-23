@@ -1,8 +1,8 @@
-// orientationGuard.js — V0.6.5
+// orientationGuard.js — V0.6.6
 // Aide mobile non bloquante : on conseille le paysage, mais on laisse une sortie
 // si la rotation automatique du téléphone ou le navigateur bloque l'orientation.
 (function () {
-  const VERSION = '0.6.5';
+  const VERSION = '0.6.6';
   const SESSION_BYPASS_KEY = 'tds.orientation.bypass';
   const MAX_MOBILE_WIDTH = 900;
 

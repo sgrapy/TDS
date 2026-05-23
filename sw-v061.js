@@ -1,16 +1,16 @@
-// sw-v063.js — V0.6.4
+// sw-v063.js — V0.6.6
 // Service worker assaini : pas de fallback HTML pour les JS/CSS/images.
-const CACHE_NAME = 'taverne-des-scores-v0-6-4-safe';
+const CACHE_NAME = 'taverne-des-scores-v0-6-6-safe';
 const APP_SHELL = [
   './', './index.html', './home.html', './jeu.html', './loading.html',
-  './style.css?v=0.6.4',
-  './appUi-062.js?v=0.6.4', './managePlayers-062.js?v=0.6.4', './saveManager-062.js?v=0.6.4',
-  './pwa-register-062.js?v=0.6.4', './site.webmanifest?v=0.6.4',
-  './js/gameLoader.js?v=0.6.4', './js/scoreGameEngine.js?v=0.6.4',
-  './js/skyjo.js?v=0.6.4', './js/simonette.js?v=0.6.4', './js/belote-coinche.js?v=0.6.4',
-  './js/tarot.js?v=0.6.4', './js/rami.js?v=0.6.4', './js/tarotafricain.js?v=0.6.4',
-  './js/papayoo.js?v=0.6.4', './js/uno.js?v=0.6.4', './js/paletbreton.js?v=0.6.4',
-  './js/molkky.js?v=0.6.4', './js/petanque.js?v=0.6.4',
+  './style.css?v=0.6.6',
+  './appUi-062.js?v=0.6.6', './managePlayers-062.js?v=0.6.6', './saveManager-062.js?v=0.6.6',
+  './pwa-register-062.js?v=0.6.6', './site.webmanifest?v=0.6.6',
+  './js/gameLoader.js?v=0.6.6', './js/scoreGameEngine.js?v=0.6.6',
+  './js/skyjo.js?v=0.6.6', './js/simonette.js?v=0.6.6', './js/belote-coinche.js?v=0.6.6',
+  './js/tarot.js?v=0.6.6', './js/rami.js?v=0.6.6', './js/tarotafricain.js?v=0.6.6',
+  './js/papayoo.js?v=0.6.6', './js/uno.js?v=0.6.6', './js/paletbreton.js?v=0.6.6',
+  './js/molkky.js?v=0.6.6', './js/petanque.js?v=0.6.6',
   './assets/pwa/taverne-icon-192.png', './assets/pwa/taverne-icon-512.png',
   './assets/pwa/taverne-maskable-192.png', './assets/pwa/taverne-maskable-512.png'
 ];
