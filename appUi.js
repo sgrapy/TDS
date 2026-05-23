@@ -1,4 +1,4 @@
-// appUi.js — V0.6.3
+// appUi.js — V0.6.4
 // Modales générales. Le système de thèmes/personnalisation a été retiré.
 (function () {
   'use strict';
@@ -92,7 +92,7 @@
     title.textContent = 'À propos';
 
     const lines = [
-      ['Version 0.6.3', 'affinage Belote/Coinche : contrats, annonces, coinche/surcoinche, capot et calcul automatique des donnes.'],
+      ['Version 0.6.4', 'affinage Belote/Coinche : contrats, annonces, coinche/surcoinche, capot et calcul automatique des donnes.'],
       ['Versionnage', '1.x.x = version en ligne, x.1.x = évolution majeure, x.x.1 = correction mineure.'],
       ['Développé par', 'Parkaf.'],
       ['Sauvegarde', 'locale automatique dans le navigateur pour les parties en cours.'],

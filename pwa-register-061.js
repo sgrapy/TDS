@@ -1,4 +1,4 @@
-// pwa-register-062.js — V0.6.3
+// pwa-register-062.js — V0.6.4
 // Nom unique pour éviter les anciens caches JS corrompus.
 (function registerTavernePwa062() {
   'use strict';

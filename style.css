@@ -1,4 +1,4 @@
-/* La Taverne des Scores — Design system V0.6.3
+/* La Taverne des Scores — Design system V0.6.4
    Thèmes supprimés : une base unique, lisible, responsive et prête pour un futur mode nuit. */
 
 :root {
@@ -451,7 +451,7 @@ main > section > h2 {
   .score-actions-bar .round-btn, .score-setup-footer .round-btn, .round-actions .round-btn, .edit-actions .round-btn, .endgame-actions .round-btn { width: 100%; }
 }
 
-/* Patch V0.6.3 — corrections lisibilité, scroll et layout */
+/* Patch V0.6.4 — corrections lisibilité, scroll et layout */
 :root {
   --footer-h: 76px;
   --content-max: 1120px;
@@ -756,7 +756,7 @@ main {
 }
 
 
-/* Patch V0.6.3 — tuiles compactes, footers harmonisés, boutons lisibles */
+/* Patch V0.6.4 — tuiles compactes, footers harmonisés, boutons lisibles */
 :root {
   --footer-h: 74px;
   --content-max: 1120px;
@@ -918,7 +918,7 @@ main {
   .confirm-box .no-btn { width: 100%; }
 }
 
-/* Patch V0.6.3 — refonte UX gestion des joueurs */
+/* Patch V0.6.4 — refonte UX gestion des joueurs */
 .players-manager-shell {
   width: min(980px, calc(100vw - 2rem)) !important;
   max-height: calc(100dvh - var(--footer-h) - 2rem) !important;
@@ -1184,7 +1184,7 @@ main {
   .player-form-actions .round-btn { width: 100%; }
 }
 
-/* Patch V0.6.3 — finitions UX : joueurs, actions de partie et modales */
+/* Patch V0.6.4 — finitions UX : joueurs, actions de partie et modales */
 :root { --footer-h: 74px; }
 
 /* Accueil : cartes vraiment proches de l'image, sans grosses plaques */
@@ -1348,7 +1348,7 @@ main {
   .confirm-box button { width: 100%; }
 }
 
-/* Patch V0.6.3 — tableau desktop complet avec 10 joueurs
+/* Patch V0.6.4 — tableau desktop complet avec 10 joueurs
    Objectif : sur ordinateur, le tableau doit tenir dans la carte sans scroll horizontal.
    La version mobile responsive sera retravaillée plus tard. */
 @media (min-width: 1024px) {
@@ -1450,7 +1450,7 @@ main {
   }
 }
 
-/* Patch V0.6.3 — gestion joueurs : cartes sans débordement + vrai bouton fermer */
+/* Patch V0.6.4 — gestion joueurs : cartes sans débordement + vrai bouton fermer */
 .players-manager-shell {
   width: min(1060px, calc(100vw - 2rem)) !important;
 }
@@ -1548,7 +1548,7 @@ main {
   }
 }
 
-/* Patch V0.6.3 — gestion joueurs : boutons visibles + vraie icône close.png */
+/* Patch V0.6.4 — gestion joueurs : boutons visibles + vraie icône close.png */
 .players-manager-shell {
   width: min(1060px, calc(100vw - 2rem)) !important;
 }
@@ -1671,7 +1671,7 @@ main {
   }
 }
 
-/* Patch V0.6.3 — corrections desktop : tableaux centrés, 10 joueurs visibles, fermeture lisible */
+/* Patch V0.6.4 — corrections desktop : tableaux centrés, 10 joueurs visibles, fermeture lisible */
 @media (min-width: 1024px) {
   html,
   body {
@@ -1853,7 +1853,7 @@ main {
   height: 14px !important;
 }
 
-/* Patch V0.6.3 — accueil : suppression des conteneurs de cartes
+/* Patch V0.6.4 — accueil : suppression des conteneurs de cartes
    Les PNG des jeux deviennent les vrais visuels cliquables, avec un léger relief. */
 main > section {
   max-width: 1040px !important;
@@ -1945,7 +1945,7 @@ main > section > h2 {
   }
 }
 
-/* V0.6.3 — Accueil desktop en deux zones : classiques à gauche, modernes/extérieur à droite */
+/* V0.6.4 — Accueil desktop en deux zones : classiques à gauche, modernes/extérieur à droite */
 @media (min-width: 900px) {
   body:has(.home-main) {
     overflow-x: hidden;
@@ -2022,7 +2022,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.3 — refonte desktop de l'écran de préparation
+/* Patch V0.6.4 — refonte desktop de l'écran de préparation
    Objectif : un seul vrai scroll utile, boutons toujours visibles, parcours plus logique. */
 @media (min-width: 900px) {
   body:has(.score-setup-overlay) {
@@ -2257,7 +2257,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.3 — Accueil desktop : cartes agrandies, page mieux occupée */
+/* Patch V0.6.4 — Accueil desktop : cartes agrandies, page mieux occupée */
 @media (min-width: 900px) {
   .home-main {
     width: min(1320px, calc(100vw - 5rem)) !important;
@@ -2333,7 +2333,7 @@ main > section > h2 {
   }
 }
 
-/* Patch V0.6.3 — Belote/Coinche avancée */
+/* Patch V0.6.4 — Belote/Coinche avancée */
 .belote-readable-notice {
   color: #f7f1e8 !important;
   background: rgba(34, 95, 62, .34) !important;
@@ -2605,7 +2605,7 @@ main > section > h2 {
   }
 }
 
-/* V0.6.3 — Tarot avancé */
+/* V0.6.4 — Tarot avancé */
 .tarot-setup-modal .score-setup-hero,
 .tarot-setup-modal .score-setup-footer {
   flex-shrink: 0;
@@ -2810,71 +2810,99 @@ main > section > h2 {
 
 
 /* =========================================================
-   Mobile portrait guard — V0.6.3
-   L'appli est pensée en paysage sur mobile/tablette pour les tableaux.
+   V0.6.4 — Aide orientation mobile non bloquante
+   Le manifest demande le paysage, mais certains téléphones ou navigateurs
+   peuvent ignorer cette demande si la rotation système est verrouillée.
    ========================================================= */
-@media screen and (max-width: 900px) and (orientation: portrait) {
-  html,
-  body {
-    width: 100%;
-    min-height: 100%;
-    overflow: hidden !important;
-    background: #100b08 !important;
-  }
+.orientation-guard {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.4rem;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(188, 98, 45, .26), transparent 28%),
+    radial-gradient(circle at 12% 88%, rgba(212, 168, 91, .16), transparent 34%),
+    linear-gradient(180deg, rgba(20, 13, 9, .98), rgba(9, 6, 5, .98));
+  color: #fff7ec;
+}
 
-  body > * {
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
+.orientation-guard.is-visible {
+  display: flex;
+}
 
-  body::before,
-  body::after {
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
+body.orientation-guard-active {
+  overflow: hidden;
+}
 
-  body::before {
-    content: "↻";
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -120%);
-    z-index: 2147483646;
-    width: 92px;
-    height: 92px;
-    border-radius: 28px;
-    display: grid;
-    place-items: center;
-    font-size: 4.2rem;
-    line-height: 1;
-    font-weight: 900;
-    color: #f6d08c;
-    background:
-      radial-gradient(circle at 35% 25%, rgba(255, 255, 255, .18), transparent 38%),
-      linear-gradient(145deg, #3a2418, #1d120d);
-    border: 1px solid rgba(246, 208, 140, .42);
-    box-shadow: 0 24px 70px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.16);
-  }
+.orientation-guard-card {
+  width: min(92vw, 520px);
+  border-radius: 28px;
+  padding: 1.6rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 35% 18%, rgba(255,255,255,.10), transparent 35%),
+    linear-gradient(145deg, #332015, #19100c);
+  border: 1px solid rgba(246, 208, 140, .28);
+  box-shadow: 0 24px 70px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.12);
+}
 
-  body::after {
-    content: "Tourne ton téléphone en paysage\A pour mieux voir les tableaux de scores.";
-    white-space: pre-line;
-    position: fixed;
-    inset: 0;
-    z-index: 2147483645;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 13.5rem 1.5rem 2rem;
-    text-align: center;
-    font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: clamp(1.15rem, 5.2vw, 1.75rem);
-    font-weight: 850;
-    line-height: 1.25;
-    color: #fff7ec;
-    background:
-      radial-gradient(circle at 50% 18%, rgba(188, 98, 45, .30), transparent 26%),
-      radial-gradient(circle at 12% 88%, rgba(212, 168, 91, .16), transparent 32%),
-      linear-gradient(180deg, #1c110c 0%, #100907 100%);
-  }
+.orientation-guard-icon {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 1rem;
+  border-radius: 28px;
+  display: grid;
+  place-items: center;
+  font-size: 3.8rem;
+  line-height: 1;
+  font-weight: 900;
+  color: #f6d08c;
+  background:
+    radial-gradient(circle at 35% 25%, rgba(255,255,255,.18), transparent 38%),
+    linear-gradient(145deg, #4a2b1a, #21130d);
+  border: 1px solid rgba(246, 208, 140, .42);
+  box-shadow: 0 18px 42px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.16);
+}
+
+.orientation-guard-title {
+  margin: 0 0 .55rem;
+  font-size: clamp(1.3rem, 5.4vw, 2rem);
+  line-height: 1.1;
+  font-weight: 900;
+  color: #fff7ec;
+}
+
+.orientation-guard-text {
+  margin: 0 auto 1.1rem;
+  max-width: 34rem;
+  color: rgba(255, 247, 236, .82);
+  font-size: clamp(.98rem, 3.9vw, 1.15rem);
+  line-height: 1.45;
+}
+
+.orientation-guard-actions {
+  display: grid;
+  gap: .7rem;
+  margin-top: 1.1rem;
+}
+
+.orientation-guard-actions .btn {
+  justify-content: center;
+  width: 100%;
+}
+
+.orientation-guard-hint {
+  display: block;
+  margin-top: .95rem;
+  color: rgba(255, 247, 236, .58);
+  font-size: .88rem;
+  line-height: 1.35;
+}
+
+@media screen and (min-width: 901px), screen and (orientation: landscape) {
+  .orientation-guard { display: none !important; }
+  body.orientation-guard-active { overflow: auto; }
 }

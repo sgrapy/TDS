@@ -1,4 +1,4 @@
-// Enregistrement PWA - La Taverne des Scores v0.6.3
+// Enregistrement PWA - La Taverne des Scores v0.6.4
 (function () {
   'use strict';
   if (!('serviceWorker' in navigator)) return;
@@ -6,7 +6,7 @@
   window.addEventListener('load', function () {
     navigator.serviceWorker.register('./sw-v063.js')
       .then(function (registration) {
-        console.info('TDS PWA v0.6.3 active', registration.scope);
+        console.info('TDS PWA v0.6.4 active', registration.scope);
       })
       .catch(function (error) {
         console.warn('TDS PWA : enregistrement impossible', error);
