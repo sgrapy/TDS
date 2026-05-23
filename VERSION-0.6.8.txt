@@ -1,0 +1,3 @@
+La Taverne des Scores — Version 0.6.8
+
+Préparation mobile paysage : les boutons du bas restent sur une seule ligne.

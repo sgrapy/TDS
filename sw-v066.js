@@ -1,18 +1,18 @@
-const CACHE_NAME = 'taverne-des-scores-v0-6-7';
+const CACHE_NAME = 'taverne-des-scores-v0-6-8';
 const CORE_ASSETS = [
   './',
   './index.html',
   './home.html',
   './jeu.html',
-  './style.css?v=0.6.7',
-  './orientationGuard.js?v=0.6.7',
-  './appUi.js?v=0.6.7',
-  './managePlayers.js?v=0.6.7',
-  './saveManager.js?v=0.6.7',
-  './pwa-register.js?v=0.6.7',
-  './site.webmanifest?v=0.6.7',
-  './js/gameLoader.js?v=0.6.7',
-  './js/scoreGameEngine.js?v=0.6.7'
+  './style.css?v=0.6.8',
+  './orientationGuard.js?v=0.6.8',
+  './appUi.js?v=0.6.8',
+  './managePlayers.js?v=0.6.8',
+  './saveManager.js?v=0.6.8',
+  './pwa-register.js?v=0.6.8',
+  './site.webmanifest?v=0.6.8',
+  './js/gameLoader.js?v=0.6.8',
+  './js/scoreGameEngine.js?v=0.6.8'
 ];
 
 self.addEventListener('install', event => {

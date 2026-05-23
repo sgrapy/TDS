@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taverne-des-scores-v0-6-7';
+const CACHE_NAME = 'taverne-des-scores-v0-6-8';
 const STATIC_ASSETS = [
   './',
   './index.html',
