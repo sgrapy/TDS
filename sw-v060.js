@@ -1,19 +1,19 @@
-// sw-v060.js — V0.6.8
+// sw-v060.js — V0.6.9
 // Nouveau nom de service worker pour sortir des anciens caches corrompus.
-const CACHE_NAME = 'taverne-des-scores-v0-6-8-tarot';
+const CACHE_NAME = 'taverne-des-scores-v0-6-9-tarot';
 const APP_SHELL = [
   './',
   './index.html',
   './home.html',
   './jeu.html',
   './loading.html',
-  './style.css?v=0.6.8',
-  './appUi.js?v=0.6.8',
-  './managePlayers.js?v=0.6.8',
-  './saveManager.js?v=0.6.8',
-  './pwa-register.js?v=0.6.8',
+  './style.css?v=0.6.9',
+  './appUi.js?v=0.6.9',
+  './managePlayers.js?v=0.6.9',
+  './saveManager.js?v=0.6.9',
+  './pwa-register.js?v=0.6.9',
   './site.webmanifest',
-  './js/gameLoader.js?v=0.6.8',
+  './js/gameLoader.js?v=0.6.9',
   './js/scoreGameEngine.js',
   './js/skyjo.js',
   './js/simonette.js',

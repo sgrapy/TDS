@@ -1,4 +1,4 @@
-// managePlayers.js — V0.6.8
+// managePlayers.js — V0.6.9
 // Gestion joueurs : actions visibles + fermeture par icon-close.png.
 
 const avatarList = Array.from({ length: 24 }, (_, i) => `avatar${i + 1}.png`);

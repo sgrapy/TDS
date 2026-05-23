@@ -1,7 +1,7 @@
 // js/belote-coinche.js
-// V0.6.8 — Belote / Coinche affinée : contrats, annonces, coinche/surcoinche, capot et sauvegarde automatique.
+// V0.6.9 — Belote / Coinche affinée : contrats, annonces, coinche/surcoinche, capot et sauvegarde automatique.
 
-const APP_VERSION = '0.6.8';
+const APP_VERSION = '0.6.9';
 const SLUG = 'belote-coinche';
 const STORAGE_KEY = `taverne_score_${SLUG}`;
 const DEFAULT_AVATAR = 'avatar24.png';

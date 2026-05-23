@@ -1,7 +1,7 @@
 // js/tarot.js
-// V0.6.8 — Tarot avancé : contrats, bouts, petit au bout, poignées, chelem, 3/4/5 joueurs et sauvegarde automatique.
+// V0.6.9 — Tarot avancé : contrats, bouts, petit au bout, poignées, chelem, 3/4/5 joueurs et sauvegarde automatique.
 
-const APP_VERSION = '0.6.8';
+const APP_VERSION = '0.6.9';
 const SLUG = 'tarot';
 const STORAGE_KEY = `taverne_score_${SLUG}`;
 const DEFAULT_AVATAR = 'avatar24.png';
