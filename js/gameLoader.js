@@ -1,7 +1,7 @@
 // js/gameLoader.js
 // Charge le module correspondant à la carte choisie sur l'accueil.
 
-const APP_VERSION = '0.6.6';
+const APP_VERSION = '0.6.7';
 
 const GAME_ROUTES = {
   'skyjo': { title: 'Skyjo', module: './skyjo.js' },
@@ -35,7 +35,7 @@ function renderUnavailable(container, gameType) {
     <section class="score-config-card">
       <h2>Jeu bientôt disponible</h2>
       <p>Le jeu <strong>${safeName}</strong> n’est pas encore branché dans cette version.</p>
-      <p>La V0.6.6 affine maintenant Belote/Coinche et Tarot. La création personnalisée sera ajoutée plus tard.</p>
+      <p>La V0.6.7 affine maintenant Belote/Coinche et Tarot. La création personnalisée sera ajoutée plus tard.</p>
       <div class="score-actions-bar">
         <a class="round-btn" href="home.html"><img class="ui-icon" src="assets/icons/icon-home.png" alt=""> Retour accueil</a>
       </div>

@@ -1,7 +1,7 @@
 // js/scoreGameEngine.js
-// Moteur commun V0.6.6 : configuration, scores, édition des manches et sauvegarde automatique.
+// Moteur commun V0.6.7 : configuration, scores, édition des manches et sauvegarde automatique.
 
-const APP_VERSION = '0.6.6';
+const APP_VERSION = '0.6.7';
 const DEFAULT_AVATAR = 'avatar24.png';
 const AVATAR_PATH = 'assets/avatars/';
 const ICON_PATH = 'assets/icons/';
@@ -248,6 +248,8 @@ export function createScoreGame(container, config) {
 
     function setStep(step) {
       modal.dataset.mobileStep = step;
+      modal.classList.toggle('prep-step-rules', step === 'rules');
+      modal.classList.toggle('prep-step-players', step === 'players');
       stepButtons.forEach(button => button.classList.toggle('is-active', button.dataset.prepStep === step));
       if (startButton) startButton.classList.toggle('is-visible-step', step === 'players');
       if (backButton) backButton.classList.toggle('is-visible-step', step === 'players');
