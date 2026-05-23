@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Taverne des Scores</title>
     <link rel="icon" href="assets/pwa/taverne-icon.png">
-  <link rel="manifest" href="site.webmanifest?v=0.6.4">
+  <link rel="manifest" href="site.webmanifest?v=0.6.5">
   <meta name="theme-color" content="#100b08">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=0.6.4">
+    <link rel="stylesheet" href="style.css?v=0.6.5">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel&display=swap" rel="stylesheet">
 
     <!-- Préchargement des polices utilisées -->
@@ -30,9 +30,15 @@
             </header>
 
     <main class="home-main">
+        <div class="home-category-tabs" aria-label="Navigation des catégories">
+            <button class="home-tab-btn is-active" type="button" data-home-target="classic">Jeux classiques</button>
+            <button class="home-tab-btn" type="button" data-home-target="modern">Jeux modernes</button>
+            <button class="home-tab-btn" type="button" data-home-target="outdoor">Jeux extérieur</button>
+            <button class="home-tab-btn" type="button" data-home-target="create">Personnalisé</button>
+        </div>
         <div class="home-columns">
             <div class="home-column home-column-classic">
-                <section class="home-section home-section-classic">
+                <section class="home-section home-section-classic is-home-tab-active" data-home-tab="classic">
                     <h2>Jeux classiques</h2>
                     <div class="game-grid classic-grid">
                         <button class="game-card" type="button" onclick="launchGame('belote-coinche')">
@@ -55,7 +61,7 @@
             </div>
 
             <div class="home-column home-column-modern">
-                <section class="home-section home-section-modern">
+                <section class="home-section home-section-modern" data-home-tab="modern">
                     <h2>Jeux modernes</h2>
                     <div class="game-grid modern-grid">
                         <button class="game-card" type="button" onclick="launchGame('skyjo')">
@@ -70,7 +76,7 @@
                     </div>
                 </section>
 
-                <section class="home-section home-section-outdoor">
+                <section class="home-section home-section-outdoor" data-home-tab="outdoor">
                     <h2>Jeux extérieur</h2>
                     <div class="game-grid outdoor-grid">
                         <button class="game-card" type="button" onclick="launchGame('palet breton')">
@@ -85,7 +91,7 @@
                     </div>
                 </section>
 
-                <section class="home-section home-section-create">
+                <section class="home-section home-section-create" data-home-tab="create">
                     <h2>Création de règle</h2>
                     <div class="game-grid create-grid">
                         <button class="game-card" type="button" onclick="launchGame('Création')">
@@ -121,7 +127,7 @@
       <div class="footer-brand" aria-label="Version de l’application">
         <span class="footer-emblem"><img src="assets/pwa/taverne-icon-192.png" alt=""></span>
         <span class="footer-title">Taverne des Scores</span>
-        <span class="footer-version"><img class="ui-icon" src="assets/icons/icon-version.png" alt=""> V0.6.4</span>
+        <span class="footer-version"><img class="ui-icon" src="assets/icons/icon-version.png" alt=""> V0.6.5</span>
       </div>
 
       <div class="footer-buttons">
@@ -174,13 +180,37 @@ function rotateMessages() {
 
        
 document.addEventListener('DOMContentLoaded', rotateMessages);
+document.addEventListener('DOMContentLoaded', () => {
+    const tabButtons = [...document.querySelectorAll('.home-tab-btn')];
+    const tabSections = [...document.querySelectorAll('[data-home-tab]')];
+    if (!tabButtons.length || !tabSections.length) return;
+
+    const storageKey = 'tds-home-mobile-tab';
+
+    function activateHomeTab(tabName) {
+        tabButtons.forEach(btn => btn.classList.toggle('is-active', btn.dataset.homeTarget === tabName));
+        tabSections.forEach(section => section.classList.toggle('is-home-tab-active', section.dataset.homeTab === tabName));
+        try { localStorage.setItem(storageKey, tabName); } catch (error) {}
+    }
+
+    tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => activateHomeTab(btn.dataset.homeTarget));
+    });
+
+    let preferredTab = 'classic';
+    try {
+        const saved = localStorage.getItem(storageKey);
+        if (saved && tabSections.some(section => section.dataset.homeTab === saved)) preferredTab = saved;
+    } catch (error) {}
+    activateHomeTab(preferredTab);
+});
     </script>
 
-<script src="saveManager.js?v=0.6.4" defer></script>
-<script src="appUi.js?v=0.6.4" defer></script>
-<script src="managePlayers.js?v=0.6.4" defer></script>
+<script src="saveManager.js?v=0.6.5" defer></script>
+<script src="appUi.js?v=0.6.5" defer></script>
+<script src="managePlayers.js?v=0.6.5" defer></script>
  
-<script src="orientationGuard.js?v=0.6.4" defer></script>
-<script src="pwa-register.js?v=0.6.4" defer></script>
+<script src="orientationGuard.js?v=0.6.5" defer></script>
+<script src="pwa-register.js?v=0.6.5" defer></script>
 </body>
 </html>

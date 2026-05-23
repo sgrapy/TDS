@@ -103,6 +103,9 @@ main {
 }
 
 section { margin: 0 0 clamp(1.6rem, 3vw, 2.6rem); }
+.home-category-tabs { display: none; }
+.home-tab-btn { appearance: none; -webkit-appearance: none; }
+
 main > section > h2 {
   display: inline-flex;
   align-items: center;
@@ -2905,4 +2908,488 @@ body.orientation-guard-active {
 @media screen and (min-width: 901px), screen and (orientation: landscape) {
   .orientation-guard { display: none !important; }
   body.orientation-guard-active { overflow: auto; }
+}
+
+/* =========================================================
+   V0.6.5 — Refonte paysage mobile PWA
+   Objectif : footer compact, accueil lisible, préparation et tableaux jouables.
+   ========================================================= */
+@media (max-width: 900px) and (orientation: landscape) {
+  :root {
+    --footer-h: 60px;
+  }
+
+  html, body {
+    overflow-x: hidden !important;
+  }
+
+  body {
+    padding-bottom: calc(var(--footer-h) + .35rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  header {
+    padding: .45rem .75rem !important;
+  }
+
+  header h1,
+  header h2 {
+    font-size: clamp(1rem, 2vw, 1.25rem) !important;
+    letter-spacing: .06em !important;
+  }
+
+  main,
+  .home-main,
+  main#gameContainer {
+    width: 100% !important;
+    max-width: none !important;
+    padding: .55rem .55rem calc(var(--footer-h) + .5rem) !important;
+  }
+
+  .app-footer {
+    min-height: var(--footer-h) !important;
+    background: rgba(19, 12, 9, .94) !important;
+    backdrop-filter: blur(12px) !important;
+  }
+
+  .footer-inner {
+    grid-template-columns: auto 1fr auto !important;
+    align-items: center !important;
+    gap: .5rem !important;
+    padding: .3rem .55rem !important;
+  }
+
+  .footer-brand {
+    gap: .45rem !important;
+  }
+
+  .footer-emblem {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .footer-emblem img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .footer-title {
+    font-size: .9rem !important;
+  }
+
+  .footer-version {
+    padding: .28rem .45rem !important;
+    font-size: .72rem !important;
+  }
+
+  .footer-buttons {
+    gap: .35rem !important;
+    justify-content: flex-end !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .footer-btn {
+    min-height: 38px !important;
+    padding: .48rem .7rem !important;
+    font-size: .82rem !important;
+  }
+
+  #footerMessage {
+    display: none !important;
+  }
+
+  /* Accueil paysage mobile : navigation par catégories pour éviter une page injouable */
+  .home-main {
+    padding-top: .45rem !important;
+  }
+
+  .home-category-tabs {
+    display: flex !important;
+    gap: .45rem;
+    overflow-x: auto;
+    padding: 0 0 .55rem;
+    margin: 0 0 .5rem;
+    scrollbar-width: none;
+  }
+
+  .home-category-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-tab-btn {
+    flex: 0 0 auto;
+    min-height: 38px;
+    padding: .48rem .85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(226,183,104,.24);
+    background: rgba(255,248,238,.08);
+    color: var(--text-on-dark);
+    font-weight: 800;
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
+  }
+
+  .home-tab-btn.is-active {
+    background: linear-gradient(180deg, rgba(183,101,52,.92), rgba(116,48,68,.94));
+    border-color: rgba(255,245,220,.28);
+    color: #fff9f1;
+  }
+
+  .home-columns,
+  .home-column {
+    display: block !important;
+  }
+
+  .home-section {
+    display: none !important;
+    margin-bottom: 0 !important;
+  }
+
+  .home-section.is-home-tab-active {
+    display: block !important;
+  }
+
+  .home-section > h2 {
+    display: none !important;
+  }
+
+  .home-section .game-grid,
+  .home-section-classic .game-grid,
+  .home-section-modern .game-grid,
+  .home-section-outdoor .game-grid,
+  .home-section-create .game-grid {
+    grid-template-columns: repeat(auto-fit, minmax(94px, 1fr)) !important;
+    justify-content: center !important;
+    gap: .78rem .7rem !important;
+  }
+
+  .game-card {
+    width: 100% !important;
+    min-height: 112px !important;
+    height: auto !important;
+  }
+
+  .game-card img {
+    width: min(90px, 100%) !important;
+    max-width: 90px !important;
+    max-height: 112px !important;
+  }
+
+  /* Écrans de jeu : on compacte tout pour laisser de la place au tableau */
+  #gameContainer .score-game-card,
+  #gameContainer .score-config-card {
+    width: calc(100vw - .85rem) !important;
+    max-width: calc(100vw - .85rem) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: .8rem .72rem !important;
+    border-radius: 20px !important;
+  }
+
+  .score-game-topline {
+    gap: .45rem !important;
+    align-items: start !important;
+    margin-bottom: .55rem !important;
+  }
+
+  .score-game-topline h2 {
+    font-size: clamp(1.45rem, 3vw, 1.9rem) !important;
+    margin-bottom: .15rem !important;
+  }
+
+  .score-game-topline p {
+    font-size: .92rem !important;
+    line-height: 1.25 !important;
+  }
+
+  .score-save-badge,
+  .score-notice {
+    font-size: .82rem !important;
+    padding: .48rem .68rem !important;
+  }
+
+  .score-summary-grid {
+    gap: .55rem !important;
+    margin-bottom: .65rem !important;
+  }
+
+  .score-summary-card {
+    padding: .68rem .72rem !important;
+    min-height: 0 !important;
+  }
+
+  .score-summary-card strong {
+    font-size: 1rem !important;
+  }
+
+  .table-wrapper,
+  .tarot-score-wrap,
+  .belote-score-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 16px !important;
+  }
+
+  #gameContainer .score-table,
+  .tarot-table,
+  .belote-table {
+    min-width: 640px !important;
+  }
+
+  #gameContainer .score-table th,
+  #gameContainer .score-table td,
+  .tarot-table th,
+  .tarot-table td,
+  .belote-table th,
+  .belote-table td {
+    padding: .48rem .28rem !important;
+    font-size: .74rem !important;
+    line-height: 1.08 !important;
+  }
+
+  #gameContainer .score-table th:first-child,
+  #gameContainer .score-table td:first-child {
+    width: 74px !important;
+    min-width: 74px !important;
+    max-width: 74px !important;
+  }
+
+  .score-avatar-stack img,
+  .tarot-player-head img,
+  .belote-team-head .score-avatar-stack img {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  .score-entity-head strong,
+  .tarot-player-head strong,
+  .belote-team-head strong {
+    font-size: .74rem !important;
+  }
+
+  .score-entity-head small,
+  .belote-team-head small {
+    font-size: .62rem !important;
+  }
+
+  .score-rank-badge {
+    width: 26px !important;
+    height: 26px !important;
+    font-size: .74rem !important;
+  }
+
+  .score-actions-bar.round-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+    margin-top: .7rem !important;
+  }
+
+  .score-actions-bar.round-controls .round-btn {
+    min-height: 40px !important;
+    padding: .58rem .62rem !important;
+    font-size: .84rem !important;
+    line-height: 1.1 !important;
+  }
+
+  /* Préparation de partie : version compacte, footer toujours visible */
+  .score-setup-overlay {
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: .35rem .35rem calc(var(--footer-h) + .45rem) !important;
+    overflow: hidden !important;
+  }
+
+  .score-setup-modal,
+  .tarot-setup-modal {
+    width: calc(100vw - .75rem) !important;
+    max-width: calc(100vw - .75rem) !important;
+    height: calc(100dvh - var(--footer-h) - .55rem) !important;
+    max-height: calc(100dvh - var(--footer-h) - .55rem) !important;
+    margin: 0 auto !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .score-setup-hero {
+    padding: .72rem .82rem .62rem !important;
+  }
+
+  .score-setup-kicker {
+    padding: .28rem .55rem !important;
+    font-size: .63rem !important;
+    margin-bottom: .35rem !important;
+  }
+
+  .score-setup-title-row h1,
+  .score-setup-title-row h2 {
+    font-size: 1.55rem !important;
+    margin: 0 0 .2rem !important;
+    line-height: 1 !important;
+  }
+
+  .score-setup-title-row p {
+    font-size: .86rem !important;
+    line-height: 1.28 !important;
+    margin: 0 !important;
+  }
+
+  .score-version {
+    padding: .28rem .48rem !important;
+    font-size: .7rem !important;
+  }
+
+  .score-setup-steps {
+    padding: .45rem .7rem 0 !important;
+    gap: .35rem !important;
+  }
+
+  .score-step-pill {
+    padding: .32rem .56rem !important;
+    font-size: .72rem !important;
+  }
+
+  .score-setup-grid,
+  .belote-setup-grid {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+    display: grid !important;
+    grid-template-columns: minmax(240px, .95fr) minmax(0, 1.05fr) !important;
+    gap: .65rem !important;
+    padding: .7rem !important;
+    align-items: stretch !important;
+  }
+
+  .score-setup-panel {
+    min-height: 0 !important;
+    overflow: hidden !important;
+    padding: .75rem !important;
+    border-radius: 16px !important;
+  }
+
+  .score-panel-head {
+    margin-bottom: .45rem !important;
+  }
+
+  .score-panel-head h3,
+  .score-panel-head h2 {
+    font-size: 1.02rem !important;
+  }
+
+  .score-panel-head p,
+  .score-helper {
+    font-size: .82rem !important;
+    line-height: 1.24 !important;
+  }
+
+  .score-rules-panel .score-options-grid,
+  .score-players-panel .score-player-tiles,
+  .tarot-edit-list {
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-right: .15rem !important;
+  }
+
+  .score-option-field {
+    gap: .28rem !important;
+    padding: .58rem .65rem !important;
+  }
+
+  .score-option-field span,
+  .score-option-check {
+    font-size: .82rem !important;
+  }
+
+  .score-option-field input,
+  .score-option-field select,
+  .score-option-field textarea,
+  .tarot-round-grid input,
+  .tarot-round-grid select,
+  .belote-round-grid input,
+  .belote-round-grid select {
+    min-height: 40px !important;
+    padding: .52rem .68rem !important;
+  }
+
+  .score-selected-tray {
+    max-height: 64px !important;
+    overflow-y: auto !important;
+    margin-bottom: .45rem !important;
+    gap: .3rem !important;
+  }
+
+  .score-selected-chip {
+    min-height: 28px !important;
+    max-width: 100% !important;
+    padding: .18rem .42rem .18rem .22rem !important;
+    font-size: .72rem !important;
+  }
+
+  .score-chip-order,
+  .score-player-order {
+    width: 20px !important;
+    height: 20px !important;
+    font-size: .68rem !important;
+  }
+
+  .score-player-tiles {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)) !important;
+    grid-auto-rows: minmax(82px, auto) !important;
+    gap: .48rem !important;
+  }
+
+  .score-player-tile,
+  .score-add-guest-tile {
+    min-height: 82px !important;
+    padding: .42rem .28rem !important;
+    border-radius: 14px !important;
+  }
+
+  .score-player-tile img {
+    width: 34px !important;
+    height: 34px !important;
+    margin-bottom: .15rem !important;
+  }
+
+  .score-player-tile strong,
+  .score-player-tile span:not(.score-player-order) {
+    font-size: .8rem !important;
+  }
+
+  .score-setup-footer,
+  .tarot-setup-modal .score-setup-footer {
+    flex: 0 0 auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: .55rem !important;
+    padding: .55rem .7rem .7rem !important;
+    background: linear-gradient(180deg, #fff8ee, #f2e4cf) !important;
+    border-top: 1px solid rgba(36,25,20,.10) !important;
+  }
+
+  .score-setup-footer .round-btn,
+  .score-setup-footer a.round-btn {
+    min-width: 0 !important;
+    width: 100% !important;
+    min-height: 40px !important;
+    padding: .55rem .6rem !important;
+    font-size: .82rem !important;
+    white-space: normal !important;
+    line-height: 1.1 !important;
+  }
+}
+
+@media (max-width: 720px) and (orientation: landscape) {
+  .score-setup-grid,
+  .belote-setup-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .score-setup-footer {
+    grid-template-columns: 1fr !important;
+  }
 }

@@ -1,7 +1,7 @@
 // js/scoreGameEngine.js
-// Moteur commun V0.6.4 : configuration, scores, édition des manches et sauvegarde automatique.
+// Moteur commun V0.6.5 : configuration, scores, édition des manches et sauvegarde automatique.
 
-const APP_VERSION = '0.6.4';
+const APP_VERSION = '0.6.5';
 const DEFAULT_AVATAR = 'avatar24.png';
 const AVATAR_PATH = 'assets/avatars/';
 const ICON_PATH = 'assets/icons/';
